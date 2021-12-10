@@ -1,0 +1,14 @@
+.side-bar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  background-image: linear-gradient(to bottom, #39a4dc, #2763ab);
+  position: absolute;
+  top: 0;
+  width: 106px;
+  height: 100vh;
+  padding: 0 20.3px 0 0;
+  z-index: 1;
+}

@@ -3,8 +3,9 @@ import Btn from "../Btn/Btn";
 import "./Navbar.css";
 import { IoMdNotifications } from "react-icons/io";
 import { FaAngleDown } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
 
-const NavBar = () => {
+const NavBar = ({ setSideBarOpen, modalOpen }) => {
   const weekDay = [
     "Sunday",
     "Monday",
@@ -15,7 +16,11 @@ const NavBar = () => {
     "Saturday",
   ];
   return (
-    <div className='nav-container'>
+    <div className={`nav-container ${modalOpen ? "blurred" : ""}`}>
+      <GiHamburgerMenu
+        className='ham-menu'
+        onClick={() => setSideBarOpen((prev) => !prev)}
+      />
       <div className='nav-links-container'>
         <span className='now-date'>
           {weekDay[new Date().getDay()] +

@@ -3,13 +3,40 @@
   min-height: 30px;
   color: #fff;
   outline: none;
+  position: relative;
+  flex-direction: column;
+  margin: 2vh 0;
+  position: relative;
+  flex-grow: 1;
 }
 input {
-  border: 0px solid;
+  border-radius: 4px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  background-color: #fff;
+  min-height: 40px;
+  padding: 0.5rem 0.5rem;
 }
 input:focus {
   outline: none;
 }
-.search {
-  flex-grow: 1;
+label {
+  order: -1;
+}
+.label {
+  position: absolute;
+  top: -3vh;
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-bottom: 5px;
+  transition: all ease-out 0.2s;
+  color: var(--black);
+}
+
+.password {
+  letter-spacing: 0.3em;
+}
+@media screen and (max-width: 700px) {
+  input {
+    min-width: 70vw;
+  }
 }

@@ -6,6 +6,9 @@
   align-items: flex-start;
   padding: 3vh 1.1vh;
 }
+.blurred {
+  opacity: 0.3;
+}
 .nav-links-container {
   display: flex;
   flex-direction: row;
@@ -68,4 +71,32 @@
   cursor: pointer;
   position: relative;
   top: 50%;
+}
+.ham-menu {
+  position: absolute;
+  font-size: 1.6rem;
+  left: 2vw;
+  top: 2vw;
+  color: #39a4dc;
+  z-index: 1;
+  cursor: pointer;
+}
+@media screen and (max-width: 600px) {
+  .nav-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .nav-links-container {
+    width: 85vw;
+    gap: 1.5vw;
+  }
+  span {
+    order: 1;
+    margin-top: 1vh;
+  }
+  .nav-name {
+    font-size: 1.1rem;
+    gap: 0.5vw;
+  }
 }
