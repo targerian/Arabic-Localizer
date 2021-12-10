@@ -61,7 +61,7 @@
   width: 68vw;
   flex-grow: 1;
 }
-.weekend {
+.weekends {
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -70,6 +70,11 @@
   border-radius: 0.313rem;
   background-color: var(--weekend);
   color: #fff;
+}
+.weekends:hover {
+  color: var(--weekend);
+  background-color: #fff;
+  border: 1px solid var(--weekend);
 }
 .cards-container {
   margin-top: 5vh;
@@ -84,7 +89,7 @@
   .search {
     width: 50vw;
   }
-  .weekend {
+  .weekends {
     margin-top: 4vh;
     width: 65vw;
   }

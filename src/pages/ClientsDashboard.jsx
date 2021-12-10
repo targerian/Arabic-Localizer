@@ -53,7 +53,7 @@ const ClientsDashboard = ({ setSideBarOpen, modalOpen, setModalOpen }) => {
               onChange={(e) => setSearch(e.target.value)}
             />{" "}
           </div>
-          <button className='weekend' onClick={() => setModalOpen(true)}>
+          <button className='weekends' onClick={() => setModalOpen(true)}>
             + Add now
           </button>
         </div>

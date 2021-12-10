@@ -23,21 +23,7 @@ button {
 
   box-sizing: border-box;
 }
-.weekend {
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0.438rem 1.625rem 0.313rem 1.75rem;
-  border-radius: 0.313rem;
-  background-color: var(--weekend);
-  color: #fff;
-}
-.weekend:hover {
-  color: var(--weekend);
-  background-color: #fff;
-  border: 1px solid var(--weekend);
-}
+
 @media screen and (max-width: 900px) {
   .btn-container {
     font-size: 1rem;

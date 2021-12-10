@@ -75,7 +75,7 @@
 }
 .attendance-statue {
   margin-top: 1vh;
-  width: 57px;
+  width: 80px;
   height: 17px;
   padding: 1vh 2vw;
   border-radius: 2px;
@@ -98,6 +98,10 @@
 .onleave {
   color: var(--leave);
   background-color: rgba(137, 151, 164, 0.16);
+}
+.weekend {
+  color: var(--weekend);
+  background-color: rgba(39, 100, 172, 0.16);
 }
 @media screen and (max-width: 1100px) {
   .hr-card-container {
