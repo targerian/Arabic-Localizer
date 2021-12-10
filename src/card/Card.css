@@ -71,6 +71,7 @@
   align-items: flex-start;
 }
 .attendance-statue {
+  margin-top: 1vh;
   width: 57px;
   height: 17px;
   padding: 2px 12px 2px 8px;
