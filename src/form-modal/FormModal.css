@@ -46,6 +46,7 @@
   position: absolute;
   z-index: 1;
   left: 15%;
+  cursor: pointer;
 }
 .input-cells {
   display: flex;
