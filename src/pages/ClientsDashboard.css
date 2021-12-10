@@ -1,0 +1,53 @@
+.dashbord-container {
+  background-color: var(--bg-grey);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3.5vh 3vw;
+}
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.search-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: #707070;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.31;
+  letter-spacing: normal;
+  text-align: left;
+  background-color: #fff;
+  min-height: 30px;
+  padding-right: 1vw;
+  border-radius: 5px;
+  padding-left: 0.5vw;
+}
+.search-icon {
+  font-size: 1.5rem;
+  color: #23aaeb;
+  margin-right: 2vw;
+}
+.search {
+  flex-grow: 1;
+  width: 76vw;
+  min-width: 30vw;
+  border-radius: 5px;
+  margin-right: 1vw;
+}
+.cards-container {
+  margin-top: 5vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5%;
+}

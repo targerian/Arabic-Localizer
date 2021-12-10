@@ -1,0 +1,34 @@
+.btn-container {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.438rem 1.625rem 0.313rem 1.75rem;
+  border-radius: 0.313rem;
+}
+.green {
+  background-color: var(--present);
+  color: #fff;
+}
+.green:hover {
+  color: var(--present);
+  background-color: #fff;
+  border: 1px solid var(--present);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+button {
+  outline: none;
+  border: none;
+
+  box-sizing: border-box;
+}
+.weekend {
+  background-color: var(--weekend);
+  color: #fff;
+}
+.weekend:hover {
+  color: var(--weekend);
+  background-color: #fff;
+  border: 1px solid var(--weekend);
+}
