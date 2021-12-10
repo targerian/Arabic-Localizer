@@ -6,8 +6,9 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  position: relative;
-  transform: translatex(30%) translateY(5%);
+  position: absolute;
+  top: 0;
+  transform: translatex(30%);
   background-color: #fff;
   padding: 2vh 2vw;
 }
@@ -142,7 +143,7 @@ option {
 }
 @media screen and (max-width: 700px) {
   .modal-container {
-    transform: translateX(20%) translateY(10%);
+    transform: translateX(20%);
     align-items: center;
     justify-content: center;
     width: 70vw;

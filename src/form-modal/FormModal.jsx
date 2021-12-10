@@ -104,7 +104,15 @@ const FormModal = ({ setModalOpen }) => {
           </div>
         </div>
         <div className='second-cell'>
-          <h2>Office Info</h2>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+            }}
+          >
+            <h2>Office Info</h2>
+          </div>
           <div className='second-cell-container'>
             <Input
               required={false}
@@ -145,7 +153,7 @@ const FormModal = ({ setModalOpen }) => {
                   <option value='weekend'>Weekend</option>
                   <option value='absent'>Absent</option>{" "}
                   <option value='holdiay'>Holiday</option>{" "}
-                  <option value='onleave'>On leave</option>{" "}
+                  <option value=' '>On leave</option>{" "}
                 </select>
               </div>
             </div>
