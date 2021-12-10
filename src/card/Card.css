@@ -74,7 +74,7 @@
   margin-top: 1vh;
   width: 57px;
   height: 17px;
-  padding: 2px 12px 2px 8px;
+  padding: 1vh 2vw;
   border-radius: 2px;
   display: flex;
   justify-content: center;
@@ -95,6 +95,16 @@
 .onleave {
   color: var(--leave);
   background-color: rgba(137, 151, 164, 0.16);
+}
+@media screen and (max-width: 1100px) {
+  .hr-card-container {
+    min-width: 30vw;
+  }
+}
+@media screen and (max-width: 920px) {
+  .hr-card-container {
+    min-width: 40vw;
+  }
 }
 
 @media screen and (max-width: 600px) {
