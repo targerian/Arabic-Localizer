@@ -16,6 +16,11 @@
   align-items: center;
   gap: 1vw;
 }
+.nav-links-specific-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .now-date {
   font-size: 0.9rem;
   color: #474747;
@@ -90,6 +95,10 @@
   .nav-links-container {
     width: 85vw;
     gap: 1.5vw;
+    flex-direction: column;
+  }
+  .nav-links-specific-container {
+    gap: 3vw;
   }
   span {
     order: 1;

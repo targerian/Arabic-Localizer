@@ -50,11 +50,26 @@
   color: #23aaeb;
   margin-right: 2vw;
 }
+.search-client {
+  width: 65vw;
+  border: none;
+  margin-right: 2vw;
+}
 .search {
   border-radius: 5px;
   margin-right: 1vw;
   width: 68vw;
   flex-grow: 1;
+}
+.weekend {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.438rem 1.625rem 0.313rem 1.75rem;
+  border-radius: 0.313rem;
+  background-color: var(--weekend);
+  color: #fff;
 }
 .cards-container {
   margin-top: 5vh;
@@ -69,13 +84,19 @@
   .search {
     width: 50vw;
   }
+  .weekend {
+    margin-top: 4vh;
+    width: 65vw;
+  }
+  .search-label {
+    background-color: var(--weekend);
+    min-height: 40px;
+    color: #fff;
+    margin-right: 1vw;
+  }
 }
 @media screen and (max-width: 600px) {
   .search {
     width: 30vw;
-  }
-  .search input {
-    width: 70vw;
-    margin-right: 0;
   }
 }

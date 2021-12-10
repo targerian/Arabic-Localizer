@@ -7,7 +7,7 @@ import { useState } from "react";
 import SideBar from "./SideBar/SideBar";
 
 function App() {
-  const [clientsData, setClientsData] = useState();
+  const [clientsData, setClientsData] = useState([]);
   const clienstValue = { clientsData, setClientsData };
   // ===========================//
   const [sidebaropen, setSideBarOpen] = useState(false);
@@ -15,8 +15,8 @@ function App() {
 
   return (
     <div className='App'>
-      <clientsContext.Provider value={clienstValue}>
-        <BrowserRouter>
+      <BrowserRouter>
+        <clientsContext.Provider value={clienstValue}>
           {sidebaropen && <SideBar setSideBarOpen={setSideBarOpen} />}
           <NavBar setSideBarOpen={setSideBarOpen} modalOpen={modalOpen} />
           <Routes>
@@ -31,8 +31,8 @@ function App() {
               }
             />
           </Routes>
-        </BrowserRouter>
-      </clientsContext.Provider>
+        </clientsContext.Provider>
+      </BrowserRouter>
     </div>
   );
 }

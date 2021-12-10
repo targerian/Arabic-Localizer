@@ -27,19 +27,21 @@ const NavBar = ({ setSideBarOpen, modalOpen }) => {
             " " +
             new Date().toLocaleString().replace(",", "")}
         </span>
-        <Btn to='/' color='green'>
-          Sign in
-        </Btn>
-        <div className='nav-icon-container'>
-          <IoMdNotifications />
-          <div className='nav-notification-number'>1</div>
+        <div className='nav-links-specific-container'>
+          <Btn to='/' color='green'>
+            Sign in
+          </Btn>
+          <div className='nav-icon-container'>
+            <IoMdNotifications />
+            <div className='nav-notification-number'>1</div>
+          </div>
+          <img className='nav-img' src='/images/test.jpg' alt='profile' />
+          <div className='nav-name'>
+            <h1>Ahmed Khaled</h1>
+            <FaAngleDown className='nav-name-dropdown' />
+          </div>
+          <FaAngleDown className='nav-dropdown' />
         </div>
-        <img className='nav-img' src='/images/test.jpg' alt='profile' />
-        <div className='nav-name'>
-          <h1>Ahmed Khaled</h1>
-          <FaAngleDown className='nav-name-dropdown' />
-        </div>
-        <FaAngleDown className='nav-dropdown' />
       </div>
     </div>
   );

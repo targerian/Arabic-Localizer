@@ -27,6 +27,7 @@ const FormModal = ({ setModalOpen }) => {
       id: new Date().getMilliseconds(),
       fName: form.fName,
       email: form.email,
+      image: "/images/test.jpg",
       sDate: form.sDate,
       phone: form.phone,
       office: form.office,
@@ -38,8 +39,9 @@ const FormModal = ({ setModalOpen }) => {
       workFromHome: form.workFromHome,
     };
     console.log(employee);
-    setClientsData((prev) => ({ ...prev, employee }));
-    alert("submitted");
+    setClientsData((clientsData) => [...clientsData, employee]);
+    console.log("submitted");
+    setModalOpen(false);
   };
   //===========================================
   const handleFormChange = (e) => {
@@ -139,10 +141,11 @@ const FormModal = ({ setModalOpen }) => {
                   id='attendance'
                   placeholder='Select'
                 >
-                  <option value='attended'>attended</option>
-                  <option value='absent'>absent</option>{" "}
-                  <option value='holiday'>holiday</option>{" "}
-                  <option value='off'>off</option>
+                  <option value='present'>Present</option>
+                  <option value='weekend'>Weekend</option>
+                  <option value='absent'>Absent</option>{" "}
+                  <option value='holdiay'>Holiday</option>{" "}
+                  <option value='onleave'>On leave</option>{" "}
                 </select>
               </div>
             </div>
