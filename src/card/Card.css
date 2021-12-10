@@ -60,6 +60,9 @@
   color: var(--leave);
   cursor: pointer;
 }
+.img-options:hover {
+  color: var(--absent);
+}
 .hr-card-container:hover {
   transform: scale(1.1);
   transition: transform ease-out 0.2s;

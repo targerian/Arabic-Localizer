@@ -25,6 +25,11 @@ const ClientsDashboard = ({ setSideBarOpen, modalOpen, setModalOpen }) => {
     );
     setFilteredList(filtered);
   }, [search, clientsData]);
+  //=======================================================
+  const handleDelete = (i) => {
+    const filtered = clientsData.filter((client) => client.id !== i);
+    setClientsData(filtered);
+  };
 
   return (
     <>
@@ -63,6 +68,7 @@ const ClientsDashboard = ({ setSideBarOpen, modalOpen, setModalOpen }) => {
                 role={client.role}
                 attendance={client.attendance}
                 department={client.department}
+                handleDelete={() => handleDelete(client.id)}
               />
             ))
           ) : (

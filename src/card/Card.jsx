@@ -4,7 +4,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { MdPauseCircleOutline } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 
-const Card = ({ name, img, role, attendance, department }) => {
+const Card = ({ name, img, role, attendance, department, handleDelete }) => {
   return (
     <div className='hr-card-container'>
       <div className='card-img-options'>
@@ -12,7 +12,7 @@ const Card = ({ name, img, role, attendance, department }) => {
         <div className='image-options-container'>
           <MdModeEditOutline className='img-options' />
           <MdPauseCircleOutline className='img-options' />
-          <MdDeleteForever className='img-options' />
+          <MdDeleteForever onClick={handleDelete} className='img-options' />
         </div>
       </div>
       <div className='card-info'>

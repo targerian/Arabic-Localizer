@@ -104,15 +104,7 @@ const FormModal = ({ setModalOpen }) => {
           </div>
         </div>
         <div className='second-cell'>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-start",
-            }}
-          >
-            <h2>Office Info</h2>
-          </div>
+          <h2>Office Info</h2>
           <div className='second-cell-container'>
             <Input
               required={false}
