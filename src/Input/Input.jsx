@@ -22,7 +22,7 @@ const Input = ({
         value={value}
         onChange={onChange}
         name={name}
-        // required={required}
+        required={required}
       />
       <label class='label' for={id}>
         {label}
