@@ -43,10 +43,10 @@
   transition: transform ease-out 0.2s;
 }
 .hr-card-img {
-  max-width: 3.333vw;
-  max-height: 3.333vw;
-  width: auto;
-  height: auto;
+  width: 3.333vw;
+  height: 3.333vw;
+  /* width: auto;
+  height: auto; */
   border-radius: 32px;
 }
 .image-options-container {
@@ -120,8 +120,8 @@
     justify-content: center;
   }
   .hr-card-img {
-    max-width: 10vw;
-    max-height: 10vw;
+    width: 10vw;
+    height: 10vw;
     border-radius: 5vw;
   }
 }
