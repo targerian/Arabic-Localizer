@@ -27,7 +27,7 @@ const FormModal = ({ setModalOpen }) => {
       id: new Date().getMilliseconds(),
       fName: form.fName,
       email: form.email,
-      image: "/images/test.jpg",
+      image: URL.createObjectURL(selectedImage) || "/images.test.jpg",
       sDate: form.sDate,
       phone: form.phone,
       office: form.office,
@@ -48,6 +48,8 @@ const FormModal = ({ setModalOpen }) => {
     const { name, value } = e.target;
     setForm((prevState) => ({ ...prevState, [name]: value }));
   };
+  //============================
+  const [selectedImage, setSelectedImage] = useState(null);
 
   return (
     <div className='modal-container'>
@@ -58,7 +60,27 @@ const FormModal = ({ setModalOpen }) => {
         <div className='firstCell'>
           <div className='upload-img'>
             <label for='file'>DRAG IMAGE HERE</label>
-            <input type='file' id='file' Value='' name='' />
+            {selectedImage && (
+              <div>
+                <img
+                  alt='not fount'
+                  className='uploaded-img'
+                  src={URL.createObjectURL(selectedImage)}
+                />
+                <br />
+                {/* <button onClick={() => setSelectedImage(null)}>Remove</button> */}
+              </div>
+            )}
+            <input
+              type='file'
+              id='file'
+              Value=''
+              name='myImage'
+              onChange={(event) => {
+                console.log(event.target.files[0]);
+                setSelectedImage(event.target.files[0]);
+              }}
+            />
           </div>
           <div className='input-cells'>
             <Input
