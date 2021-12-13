@@ -1,6 +1,6 @@
-.card-info h1 {
+.card-info h5 {
   color: var(--black);
-  font-family: Lato;
+  font-family: Lato !important;
   font-weight: normal;
   font-stretch: normal;
   font-style: italic;
@@ -9,7 +9,7 @@
   text-align: left;
   margin-bottom: 2.8%;
 }
-.card-info h2 {
+.card-info h6 {
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -19,7 +19,7 @@
   color: #313030;
   margin-bottom: 0.9%;
 }
-.card-info h3 {
+.card-info h7 {
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -33,7 +33,7 @@
   flex-direction: row;
   justify-content: flex-start;
   width: 20.8vw;
-  height: 22vh;
+  height: 20vh;
   background-color: #fff;
   box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.09);
   border: solid 1px #eaeef0;

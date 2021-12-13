@@ -277,12 +277,13 @@ const FormModal = ({ setModalOpen }) => {
             />
           </Form.Group>
         </Row>
-        <div className='d-flex flex-column  flex-sm-row justify-content-end'>
+        <div className='d-flex flex-column flex-md-row justify-content-end'>
           <Button className='m-2' type='submit'>
             Submit
           </Button>
           <Button
             bg='danger'
+            size='lg'
             className='m-2 bg-danger'
             onClick={() => setModalOpen(false)}
           >
