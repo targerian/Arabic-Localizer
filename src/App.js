@@ -5,6 +5,8 @@ import ClientsDashboard from "./pages/ClientsDashboard";
 import { clientsContext } from "./store/ContextProvider";
 import { useState } from "react";
 import SideBar from "./SideBar/SideBar";
+import Sign from "./pages/Sign";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [clientsData, setClientsData] = useState([]);
@@ -20,6 +22,7 @@ function App() {
           {sidebaropen && <SideBar setSideBarOpen={setSideBarOpen} />}
           <NavBar setSideBarOpen={setSideBarOpen} modalOpen={modalOpen} />
           <Routes>
+            <Route path='/sign' element={<Sign />} />
             <Route
               path='/'
               element={

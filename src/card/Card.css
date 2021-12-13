@@ -32,7 +32,8 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  min-width: 20.8vw;
+  width: 20.8vw;
+  height: 22vh;
   background-color: #fff;
   box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.09);
   border: solid 1px #eaeef0;
@@ -42,9 +43,15 @@
   transform: scale(1);
   transition: transform ease-out 0.2s;
 }
+.card-img-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2vh;
+}
 .hr-card-img {
-  width: 3.333vw;
-  height: 3.333vw;
+  width: 4.333vw;
+  height: 4.333vw;
   /* width: auto;
   height: auto; */
   border-radius: 32px;

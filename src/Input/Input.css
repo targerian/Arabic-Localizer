@@ -13,7 +13,7 @@ input {
   border-radius: 4px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   background-color: #fff;
-  min-height: 40px;
+  /* min-height: 40px; */
   padding: 0.5rem 0.5rem;
 }
 input:focus {
@@ -36,7 +36,7 @@ label {
   letter-spacing: 0.3em;
 }
 @media screen and (max-width: 700px) {
-  input {
+  input .text {
     min-width: 70vw;
   }
 }

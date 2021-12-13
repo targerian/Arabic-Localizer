@@ -21,7 +21,7 @@ const ClientsDashboard = ({ setSideBarOpen, modalOpen, setModalOpen }) => {
 
   useEffect(() => {
     const filtered = clientsData.filter((client) =>
-      client.fName.includes(search)
+      client.name.includes(search)
     );
     setFilteredList(filtered);
   }, [search, clientsData]);
@@ -63,7 +63,7 @@ const ClientsDashboard = ({ setSideBarOpen, modalOpen, setModalOpen }) => {
             filteredList.map((client) => (
               <Card
                 key={client.id}
-                name={client.fName}
+                name={client.name}
                 img={client.image}
                 role={client.role}
                 attendance={client.attendance}

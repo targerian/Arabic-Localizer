@@ -16,9 +16,9 @@ const Card = ({ name, img, role, attendance, department, handleDelete }) => {
         </div>
       </div>
       <div className='card-info'>
-        <h1>{name}</h1>
-        <h2>{role}</h2>
-        <h3>{department}</h3>
+        <h5>{name.substring(0, 15)}</h5>
+        <h6>{role.substring(0, 9)}</h6>
+        <h7>{department}</h7>
         <div className={`attendance-statue ${attendance}`}>{attendance}</div>
       </div>
     </div>
