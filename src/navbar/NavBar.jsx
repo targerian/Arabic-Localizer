@@ -16,28 +16,32 @@ const NavBar = ({ setSideBarOpen, modalOpen }) => {
     "Saturday",
   ];
   return (
-    <div className={`nav-container ${modalOpen ? "blurred" : ""}`}>
+    <div
+      className={`d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center align-items-md-start nav-container ${
+        modalOpen ? "blurred" : ""
+      }`}
+    >
       <GiHamburgerMenu
         className='ham-menu'
         onClick={() => setSideBarOpen((prev) => !prev)}
       />
-      <div className='nav-links-container'>
+      <div className='d-flex flex-col flex-md-row justify-content-end align-items-center nav-links-container '>
         <span className='now-date'>
           {weekDay[new Date().getDay()] +
             " " +
             new Date().toLocaleString().replace(",", "")}
         </span>
-        <div className='nav-links-specific-container'>
+        <div className='d-flex flex-row justify-content-center align-items-center nav-links-specific-container'>
           <Btn to='/' color='green'>
             Sign in
           </Btn>
           <div className='nav-icon-container'>
-            <IoMdNotifications />
+            <IoMdNotifications className='nav-icon' />
             <div className='nav-notification-number'>1</div>
           </div>
-          <img className='nav-img' src='/images/test.jpg' alt='profile' />
           <div className='nav-name'>
-            <h1>Ahmed Khaled</h1>
+            <img className='nav-img' src='/images/test.jpg' alt='profile' />
+            <span>Ahmed Khaled</span>
             <FaAngleDown className='nav-name-dropdown' />
           </div>
           <FaAngleDown className='nav-dropdown' />
