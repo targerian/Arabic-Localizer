@@ -160,7 +160,7 @@ const FormModal = ({ setModalOpen }) => {
           </Col>
         </Row>
         <h3 className='text-primary mt-4'>Office Info</h3>
-        <Form.Group className='mb-3' controlId='office'>
+        <Form.Group required className='mb-3' controlId='office'>
           <Form.Label>Office</Form.Label>
           <Form.Select
             aria-label='Default select example'
@@ -184,8 +184,9 @@ const FormModal = ({ setModalOpen }) => {
                 onChange={handleFormChange}
                 value={form.department}
                 name='department'
+                required
               >
-                <option>Select</option>
+                <option value="">Select</option>
                 <option value='dep1'>Department 1</option>
                 <option value='dep2'>Department 2</option>
                 <option value='dep2'>Department 3</option>
@@ -200,8 +201,9 @@ const FormModal = ({ setModalOpen }) => {
                 onChange={handleFormChange}
                 value={form.attendance}
                 name='attendance'
+                required
               >
-                <option>Select</option>
+                <option value="">Select</option>
                 <option value='present'>Present</option>
                 <option value='weekend'>Weekend</option>
                 <option value='absent'>Absent</option>
@@ -213,15 +215,21 @@ const FormModal = ({ setModalOpen }) => {
         </Row>
         <Row>
           <Col xs={12} md={6}>
-            <Form.Group className='mb-3' controlId='role'>
+          <Form.Group className='mb-3' controlId='role'>
               <Form.Label>Role</Form.Label>
-              <Form.Control
-                type='text'
+              <Form.Select
+                aria-label='Default select example'
                 onChange={handleFormChange}
                 value={form.role}
                 name='role'
                 required
-              />
+              >
+                <option value="">Select</option>
+                <option value='HR Manager'>HR Manager</option>
+                <option value='Frontend Developer'>Frontend Developer</option>
+                <option value='Backend Developer'>Backend Developer</option>
+                <option value='Dev Ops'>Dev Ops</option>
+              </Form.Select>
             </Form.Group>
           </Col>
           <Col xs={12} md={6}>
