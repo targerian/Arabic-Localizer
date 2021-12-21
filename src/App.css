@@ -9,13 +9,15 @@
 }
 * {
   box-sizing: border-box;
+  font-size: 16px;
 }
 body {
   font-family: "Roboto", sans-serif;
 }
 a,
-a:visited {
-  text-decoration: none;
+a:visited,
+a:hover {
+  text-decoration: none !important;
   color: inherit;
 }
 h1,
@@ -24,9 +26,9 @@ h3 {
   margin: 0;
 }
 h1 {
-  font-size: 1.3rem;
-  line-height: 1.2;
-  letter-spacing: normal;
+  font-size: 1.25rem !important;
+  line-height: 1.2 !important;
+  letter-spacing: normal !important;
 }
 h2 {
   font-size: 0.813rem;
