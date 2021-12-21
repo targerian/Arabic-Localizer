@@ -9,9 +9,9 @@ import { BsExclamation } from "react-icons/bs";
 
 
 
-const Card = ({ name, img, role, attendance, department, handleDelete,modalOpen }) => {
+const Card = ({ name, img, role, attendance, department, handleDelete }) => {
   return (
-    <div className={`py-2  px-3 d-flex flex-row justify-content-start align-items-start hr-card-container  ${modalOpen ? "blurred" : ""}`}>
+    <div className={`py-2  px-3 d-flex flex-row justify-content-start align-items-start hr-card-container `}>
       <div className='card-img-options d-flex flex-column gap-2'>
         <img className='hr-card-img' src={img} alt='client' />
         <div className='image-options-container'>
