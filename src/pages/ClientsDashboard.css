@@ -10,9 +10,7 @@
   padding-left: 7vw;
 }
 
-.blurred {
-  opacity: 0.3;
-}
+
 
 .search-label{
   min-height: 30px;
@@ -63,6 +61,9 @@ box-shadow: none!important;
 .cards-container {
   margin-top: 4vh;
   gap: 2.5%;
+  z-index: 0;
+  flex-flow: row wrap;
+  width:100%;
 }
 @media screen and (max-width: 767px) {
   .weekends {

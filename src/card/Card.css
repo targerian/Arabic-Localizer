@@ -6,9 +6,9 @@
   line-height: 1.2;
   letter-spacing: 1.1px;
   text-align: left;
-  margin-bottom: 2.8%;
   white-space: nowrap;
   text-overflow: ellipsis; 
+  max-width: 100%;
 }
 .card-info h6 {
   font-family: Roboto !important;
@@ -32,7 +32,7 @@
   letter-spacing: 0.55px;
   text-align: left;
   color: #5c6974;
-  margin-bottom: 2.5%;
+  margin-bottom: 5px;
 }
 .hr-card-container {
   width: 380px;
@@ -45,6 +45,7 @@
   transform: scale(1);
   transition: transform ease-out 0.2s;
   overflow: hidden;
+  z-index: 0;
 
 }
 .card-img-options {
@@ -126,14 +127,15 @@
 .card-icon{
   font-size:0.8rem
 }
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1362px) {
   .hr-card-container {
-    min-width: 30vw;
+    width: 42vw;
+    height: 110px
   }
 }
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 767px) {
   .hr-card-container {
-    min-width: 40vw;
+    min-width: 70vw;
   }
 }
 

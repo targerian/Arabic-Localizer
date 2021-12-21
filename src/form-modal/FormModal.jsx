@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import Input from "../Input/Input";
+import React, { useContext, useState } from "react";
 import "./FormModal.css";
 import { clientsContext } from "../store/ContextProvider";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
@@ -64,7 +63,6 @@ const FormModal = ({ setModalOpen }) => {
     };
     console.log(employee);
     setClientsData((clientsData) => [...clientsData, employee]);
-    console.log("submitted");
     setModalOpen(false);
   };
   //===========================================
@@ -79,10 +77,14 @@ const FormModal = ({ setModalOpen }) => {
   const [validated, setValidated] = useState(false);
 
   return (
-    <Container className='w-75 form-con'>
+    <div className="modal-form-container d-flex justify-content-center align-items-center">
+    <Container className='form-con p-2'>
       <Form onSubmit={onSubmit} id='form' validated={validated}>
-        <h3 className='text-primary'>New Emplowee</h3>
-        <Row>
+        <h3 className='form-header'>New Emplowee</h3>
+        <hr className="main-hr"/>
+        <h4>Personal info</h4>
+        <hr className="sub-hr"/>
+        <Row className="mb-2">
           <Col xs={12} md={4}>
             <div className='bs-img-upload'>
               <input
@@ -112,61 +114,67 @@ const FormModal = ({ setModalOpen }) => {
             </div>
           </Col>
           <Col xs={12} md={4}>
-            <Form.Group className='mb-3' controlId='name'>
-              <Form.Label>Name</Form.Label>
+            <Form.Group className='mb-2 form-text-input' controlId='name'>
+              <Form.Label className="form-text-input">Name</Form.Label>
               <Form.Control
                 onChange={handleFormChange}
                 value={form.name}
                 name='name'
                 type='text'
                 placeholder='Your Name'
+                className="form-text-input"
                 required
               />
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className='mb-3' controlId='phone'>
-              <Form.Label>Telephone number</Form.Label>
+            <Form.Group className='mb-2 form-text-input' controlId='phone'>
+              <Form.Label className="form-text-input">Telephone number</Form.Label>
               <Form.Control
                 type='tel'
                 onChange={handleFormChange}
                 value={form.phone}
                 name='phone'
                 required
+                className="form-text-input"
               />
             </Form.Group>
           </Col>
           <Col xs={12} md={4}>
-            <Form.Group className='mb-3' controlId='sDate'>
-              <Form.Label>Start Date</Form.Label>
+            <Form.Group className='mb-2 form-text-input' controlId='sDate'>
+              <Form.Label className="form-text-input">Start Date</Form.Label>
               <Form.Control
                 type='date'
                 onChange={handleFormChange}
                 value={form.sDate}
                 name='sDate'
                 required
+                className="form-text-input"
               />
             </Form.Group>
-            <Form.Group className='mb-3' controlId='email'>
-              <Form.Label>Email address</Form.Label>
+            <Form.Group className='mb-2 form-text-input' controlId='email'>
+              <Form.Label className="form-text-input">Email address</Form.Label>
               <Form.Control
                 type='email'
                 placeholder='name@example.com'
                 onChange={handleFormChange}
                 value={form.email}
                 name='email'
+                className="form-text-input"
                 required
               />
             </Form.Group>
           </Col>
         </Row>
-        <h3 className='text-primary mt-4'>Office Info</h3>
-        <Form.Group required className='mb-3' controlId='office'>
-          <Form.Label>Office</Form.Label>
+        <h4>Office info</h4>
+        <hr className="sub-hr"/>
+        <Form.Group required className='mb-2' controlId='office'>
+          <Form.Label className="form-text-input">Office</Form.Label>
           <Form.Select
             aria-label='Default select example'
             onChange={handleFormChange}
             value={form.office}
             name='office'
+            className="form-text-input"
             required
           >
             <option>Select</option>
@@ -177,13 +185,14 @@ const FormModal = ({ setModalOpen }) => {
         </Form.Group>
         <Row>
           <Col xs={12} md={6}>
-            <Form.Group className='mb-3' controlId='department'>
-              <Form.Label>Department</Form.Label>
+            <Form.Group className='mb-2' controlId='department'>
+              <Form.Label className="form-text-input">Department</Form.Label>
               <Form.Select
                 aria-label='Default select example'
                 onChange={handleFormChange}
                 value={form.department}
                 name='department'
+                className="form-text-input"
                 required
               >
                 <option value="">Select</option>
@@ -194,13 +203,14 @@ const FormModal = ({ setModalOpen }) => {
             </Form.Group>
           </Col>
           <Col xs={12} md={6}>
-            <Form.Group className='mb-3' controlId='attendance'>
-              <Form.Label>Attendance profile</Form.Label>
+            <Form.Group className='mb-2' controlId='attendance'>
+              <Form.Label className="form-text-input">Attendance profile</Form.Label>
               <Form.Select
                 aria-label='Default select example'
                 onChange={handleFormChange}
                 value={form.attendance}
                 name='attendance'
+                className="form-text-input"
                 required
               >
                 <option value="">Select</option>
@@ -215,13 +225,14 @@ const FormModal = ({ setModalOpen }) => {
         </Row>
         <Row>
           <Col xs={12} md={6}>
-          <Form.Group className='mb-3' controlId='role'>
-              <Form.Label>Role</Form.Label>
+          <Form.Group className='mb-2' controlId='role'>
+              <Form.Label className="form-text-input">Role</Form.Label>
               <Form.Select
                 aria-label='Default select example'
                 onChange={handleFormChange}
                 value={form.role}
                 name='role'
+                className="form-text-input"
                 required
               >
                 <option value="">Select</option>
@@ -233,13 +244,14 @@ const FormModal = ({ setModalOpen }) => {
             </Form.Group>
           </Col>
           <Col xs={12} md={6}>
-            <Form.Group className='mb-3' controlId='position'>
-              <Form.Label>Positiion</Form.Label>
+            <Form.Group className='mb-2' controlId='position'>
+              <Form.Label className="form-text-input">Positiion</Form.Label>
               <Form.Select
                 aria-label='Default select example'
                 onChange={handleFormChange}
                 value={form.position}
                 name='position'
+                className="form-text-input"
                 required
               >
                 <option>Select</option>
@@ -251,13 +263,14 @@ const FormModal = ({ setModalOpen }) => {
             </Form.Group>
           </Col>
           <Col xs={12} md={6}>
-            <Form.Group className='mb-3' controlId='dManager'>
-              <Form.Label>Direct Manager</Form.Label>
+            <Form.Group className='mb-2' controlId='dManager'>
+              <Form.Label className="form-text-input">Direct Manager</Form.Label>
               <Form.Select
                 aria-label='Default select example'
                 onChange={handleFormChange}
                 value={form.dManager}
                 name='dManager'
+                className="form-text-input"
               >
                 <option>Select</option>
                 <option value='manager1'>Manager 1</option>
@@ -268,9 +281,10 @@ const FormModal = ({ setModalOpen }) => {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
-          <h5 className='text-primary'>work from home</h5>
-          <Form.Group className='mb-3' id='workFromHome'>
+          <h4 >work from home</h4>
+          <hr className="sub-hr"/>
+        <Row className="mt-4">
+          <Form.Group  id='workFromHome'>
             <Form.Check
               type='checkbox'
               label='Allow emplowee to work from home'
@@ -285,14 +299,14 @@ const FormModal = ({ setModalOpen }) => {
             />
           </Form.Group>
         </Row>
-        <div className='d-flex flex-column flex-md-row justify-content-end'>
-          <Button className='m-2' type='submit'>
+        <div className='d-flex flex-column flex-md-row justify-content-end gap-2'>
+          <Button className='form-btn ' type='submit'>
             Submit
           </Button>
           <Button
             bg='danger'
             size='lg'
-            className='m-2 bg-danger'
+            className='form-btn  bg-danger'
             onClick={() => setModalOpen(false)}
           >
             Cancel
@@ -300,6 +314,7 @@ const FormModal = ({ setModalOpen }) => {
         </div>
       </Form>
     </Container>
+    </div>
   );
 };
 

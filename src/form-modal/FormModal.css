@@ -1,15 +1,59 @@
-.form-con {
-  z-index: 20;
-  background-color: #fff;
-  transform: scale(0.8) translateX(20%);
+.modal-form-container{
   position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
+  right:0;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  background-color: rgba(40, 104, 174, 0.43);
+  z-index: 1;
+}
+.form-con {
+  background-color: #fff;
+  position:relative;
+  width:65% !important;
+  font-family: Roboto;
+  z-index: 100!important;
+  background-color: #fff;
+
+}
+.form-con h3{
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.22;
+  letter-spacing: 0.99px;
+  text-align: left;
+  color: #23aaeb;
+}
+.form-con h4 {
+font-size: 1rem;
+font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.19;
+  letter-spacing: normal;
+  text-align: left;
+  color: #23aaeb;
+}
+.main-hr{
+  border: solid 1px #23aaeb;
+  margin: 1vh 0;
+}
+.sub-hr{
+  width: 44px;
+  height: 4px !important;
+  border-radius: 3px;
+  background-color: rgba(35, 170, 235, 0.54);
+  margin-top: 0vh;
+  margin-bottom: 1vh;
 }
 .bs-img-upload {
-  border: 1px dotted black;
-  width: 100%;
-  height: 100%;
+  border: 0.5px dotted black;
+  height:95%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,4 +76,25 @@
   position: absolute;
   top: 0;
   left: 0;
+}
+.form-text-input{
+  font-size: 0.813rem !important;
+}
+input.form-text-input{
+  height: 30px!important;
+}
+.form-btn{
+  min-width: 85px;
+  font-size: 0.813rem;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+}
+@media screen and (max-width: 768px){
+  .form-con{
+    width: 80vw !important;
+    transform:translateX(12%);
+  }
 }

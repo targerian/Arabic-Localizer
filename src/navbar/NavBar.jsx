@@ -5,7 +5,7 @@ import { IoMdNotifications } from "react-icons/io";
 import { FaAngleDown } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-const NavBar = ({ setSideBarOpen, modalOpen }) => {
+const NavBar = ({  modalOpen }) => {
   const weekDay = [
     "Sunday",
     "Monday",
@@ -17,13 +17,10 @@ const NavBar = ({ setSideBarOpen, modalOpen }) => {
   ];
   return (
     <div
-      className={`d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center align-items-md-start mb-2 nav-container ${
-        modalOpen ? "blurred" : ""
-      }`}
+      className={`d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center align-items-md-start mb-2 nav-container `}
     >
       <GiHamburgerMenu
         className='ham-menu'
-        onClick={() => setSideBarOpen((prev) => !prev)}
       />
       <div className='d-flex flex-col flex-md-row justify-content-end align-items-center nav-links-container '>
         <span className='now-date'>

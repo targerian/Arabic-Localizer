@@ -1,14 +1,30 @@
 .side-bar-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   background-image: linear-gradient(to bottom, #39a4dc, #2763ab);
   position: absolute;
   top: 0;
-  width: 5.5vw;
+  width: 5.9vw;
   height: 100vh;
-  padding: 0 20.3px 0 0;
-  z-index: 1;
+}
+.blurred {
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  background-color: rgba(40, 104, 174, 0.43);
+}
+.element-container{
+  cursor: pointer;
+  width:100%;
+}
+.element-container:active{
+  background-color: #2765ac;
+}
+.side-bar-icon{
+  color:#fff;
+  font-size: 2.8rem;
+}
+.side-text{
+  color: white;
+  font-size: 0.75rem;
+  text-align: center;
+
 }

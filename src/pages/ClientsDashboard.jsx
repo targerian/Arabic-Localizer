@@ -9,7 +9,7 @@ import { clientsContext } from "../store/ContextProvider";
 import { useEffect } from "react/cjs/react.development";
 import { Form } from "react-bootstrap";
 
-const ClientsDashboard = ({ setSideBarOpen, modalOpen, setModalOpen }) => {
+const ClientsDashboard = ({  modalOpen, setModalOpen }) => {
   const { clientsData, setClientsData } = useContext(clientsContext);
   const [search, setSearch] = useState("");
   //===============================================
@@ -36,8 +36,7 @@ const ClientsDashboard = ({ setSideBarOpen, modalOpen, setModalOpen }) => {
     <>
       {modalOpen && <FormModal setModalOpen={setModalOpen} />}
       <div
-        className={`dashbord-container ${modalOpen ? "blurred" : ""}`}
-        onClick={() => setSideBarOpen(false)}
+        className={`dashbord-container`}
       >
         <div className='w-100 d-flex flex-column flex-md-row justify-content-start align-items-start align-items-md-center'>
           <div className='w-100 w-md-auto d-flex flex-row justify-content-center align-items-center flex-fill me-2 '>
@@ -63,7 +62,7 @@ const ClientsDashboard = ({ setSideBarOpen, modalOpen, setModalOpen }) => {
           </button>
         </div>
         {/* ======================================================================== */}
-        <div className='cards-container d-flex flex-row justify-content-center justify-content-md-start flex-wrap align-items-start align-self-start '>
+        <div className='cards-container d-flex flex-row justify-content-center justify-content-md-start row-wrap align-items-start align-self-start '>
           {filteredList ? (
             filteredList.map((client) => (
               <Card
@@ -74,6 +73,7 @@ const ClientsDashboard = ({ setSideBarOpen, modalOpen, setModalOpen }) => {
                 attendance={client.attendance}
                 department={client.department}
                 handleDelete={() => handleDelete(client.id)}
+                modalOpen={modalOpen}
               />
             ))
           ) : (

@@ -12,22 +12,20 @@ function App() {
   const [clientsData, setClientsData] = useState([]);
   const clienstValue = { clientsData, setClientsData };
   // ===========================//
-  const [sidebaropen, setSideBarOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <div className='App'>
       <BrowserRouter>
         <clientsContext.Provider value={clienstValue}>
-          {sidebaropen && <SideBar setSideBarOpen={setSideBarOpen} />}
-          <NavBar setSideBarOpen={setSideBarOpen} modalOpen={modalOpen} />
+          <SideBar modalOpen={modalOpen} />
+          <NavBar modalOpen={modalOpen} />
           <Routes>
             <Route path='/sign' element={<Sign />} />
             <Route
               path='/'
               element={
                 <ClientsDashboard
-                  setSideBarOpen={setSideBarOpen}
                   setModalOpen={setModalOpen}
                   modalOpen={modalOpen}
                 />
