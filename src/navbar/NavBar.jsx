@@ -17,7 +17,7 @@ const NavBar = ({ setSideBarOpen, modalOpen }) => {
   ];
   return (
     <div
-      className={`d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center align-items-md-start nav-container ${
+      className={`d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center align-items-md-start mb-2 nav-container ${
         modalOpen ? "blurred" : ""
       }`}
     >

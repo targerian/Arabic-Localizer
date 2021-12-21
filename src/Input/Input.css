@@ -11,10 +11,10 @@
 }
 input {
   border-radius: 4px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  /* box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16); */
   background-color: #fff;
   /* min-height: 40px; */
-  padding: 0.5rem 0.5rem;
+  /* padding: 0.5rem 0.5rem; */
 }
 input:focus {
   outline: none;
@@ -30,6 +30,9 @@ label {
   margin-bottom: 5px;
   transition: all ease-out 0.2s;
   color: var(--black);
+}
+.search {
+  box-shadow: none;
 }
 
 .password {

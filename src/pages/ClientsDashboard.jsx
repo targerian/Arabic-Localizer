@@ -7,6 +7,7 @@ import Card from "../card/Card";
 import FormModal from "../form-modal/FormModal";
 import { clientsContext } from "../store/ContextProvider";
 import { useEffect } from "react/cjs/react.development";
+import { Form } from "react-bootstrap";
 
 const ClientsDashboard = ({ setSideBarOpen, modalOpen, setModalOpen }) => {
   const { clientsData, setClientsData } = useContext(clientsContext);
@@ -38,22 +39,35 @@ const ClientsDashboard = ({ setSideBarOpen, modalOpen, setModalOpen }) => {
         className={`dashbord-container ${modalOpen ? "blurred" : ""}`}
         onClick={() => setSideBarOpen(false)}
       >
-        <div className='search-bar'>
-          <div className='search-bar-items'>
-            <label for='search' className='search-label'>
-              <AiOutlineSearch className='search-icon' />
+        <div className='w-100 d-flex flex-column flex-md-row justify-content-start align-items-start align-items-md-center'>
+          <div className='w-100 w-md-auto d-flex flex-row justify-content-center align-items-center flex-fill me-2 '>
+            <label for='search' className='d-flex flex-row me-3'>
+              <AiOutlineSearch className='me-2 search-icon' />
               Search
             </label>
-            <input
-              class='search-client'
+            <Form.Control
+              size='lg'
               type='search'
               id='search'
               name='search'
               value={search}
+              className='flex-fill search-input'
               onChange={(e) => setSearch(e.target.value)}
-            />{" "}
+            />
+
+            {/* <input
+                class='flex-fill flex-grow-1 search-client'
+                type='search'
+                id='search'
+                name='search'
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              /> */}
           </div>
-          <button className='weekends' onClick={() => setModalOpen(true)}>
+          <button
+            className='mt-4 mt-md-0 weekends'
+            onClick={() => setModalOpen(true)}
+          >
             + Add now
           </button>
         </div>
