@@ -33,7 +33,9 @@ const Card = ({
         </div>
       </div>
       <div className="card-info ">
-        <h5 className="text-dark text-truncate">{name}</h5>
+        <h5 className="text-dark text-truncate">
+          {name && name[0].toUpperCase() + name.substring(1)}
+        </h5>
         <h6>{role}</h6>
         <h7 className="text-secondary">{department}</h7>
         <div className={`attendance-statue ${attendance}`}>

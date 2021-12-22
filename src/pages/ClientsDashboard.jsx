@@ -22,7 +22,7 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
 
   useEffect(() => {
     const filtered = clientsData.filter((client) =>
-      client.name.includes(search)
+      client.name.toLowerCase().includes(search)
     );
     setFilteredList(filtered);
   }, [search, clientsData]);
@@ -52,7 +52,7 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
               name="search"
               value={search}
               className="flex-fill search-input"
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value.toLowerCase())}
             />
           </div>
           <button
