@@ -60,7 +60,7 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
             onClick={() => setModalOpen(true)}
           >
             <span className="plus">+</span>
-            <span>Add now</span>
+            <span>Add new</span>
           </button>
         </div>
         {/* ======================================================================== */}
