@@ -1,24 +1,25 @@
-.modal-form-container{
+.modal-form-container {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
-  right:0;
+  right: 0;
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
   background-color: rgba(40, 104, 174, 0.43);
   z-index: 1;
+  padding-top: 10vh;
 }
 .form-con {
-  background-color: #fff;
-  position:relative;
-  width:65% !important;
+  position: relative;
+  width: 65% !important;
   font-family: Roboto;
-  z-index: 100!important;
+  z-index: 100 !important;
   background-color: #fff;
-
+  border-radius: 4px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 }
-.form-con h3{
+.form-con h3 {
   font-family: Roboto;
   font-size: 1.125rem;
   font-weight: normal;
@@ -30,8 +31,8 @@
   color: #23aaeb;
 }
 .form-con h4 {
-font-size: 1rem;
-font-weight: bold;
+  font-size: 1rem;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.19;
@@ -39,11 +40,11 @@ font-weight: bold;
   text-align: left;
   color: #23aaeb;
 }
-.main-hr{
+.main-hr {
   border: solid 1px #23aaeb;
   margin: 1vh 0;
 }
-.sub-hr{
+.sub-hr {
   width: 44px;
   height: 4px !important;
   border-radius: 3px;
@@ -52,8 +53,8 @@ font-weight: bold;
   margin-bottom: 1vh;
 }
 .bs-img-upload {
-  border: 0.5px dotted black;
-  height:95%;
+  border: 2px dashed #707070;
+  height: 95%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,9 +66,10 @@ font-weight: bold;
   cursor: pointer;
 }
 .input-file-label {
-  font-size: 1.6rem;
+  font-size: 1rem;
   position: absolute;
   cursor: pointer;
+  color: #5c6974;
 }
 .uploaded-img {
   width: 100%;
@@ -77,13 +79,16 @@ font-weight: bold;
   top: 0;
   left: 0;
 }
-.form-text-input{
+.form-text-input {
   font-size: 0.813rem !important;
 }
-input.form-text-input{
-  height: 30px!important;
+input.form-text-input {
+  height: 30px !important;
 }
-.form-btn{
+option {
+  font-size: 0.813rem;
+}
+.form-btn {
   min-width: 85px;
   font-size: 0.813rem !important;
   font-stretch: normal;
@@ -92,9 +97,18 @@ input.form-text-input{
   letter-spacing: normal;
   text-align: center;
 }
-@media screen and (max-width: 768px){
-  .form-con{
+@media screen and (max-width: 1680px) {
+  .form-con {
+    transform: scaleY(0.92);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .form-con {
     width: 88vw !important;
-   height: 100vh;
+  }
+  .modal-form-container {
+    bottom: -50vh;
+    padding-top: 0;
   }
 }

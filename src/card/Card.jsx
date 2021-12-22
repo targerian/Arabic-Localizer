@@ -71,7 +71,7 @@ const Card = ({
               <span className="mb-2 add-info-description">{dManager}</span>
             </Col>
             <Col className="d-flex flex-column align-items-start">
-              <span className="add-info-title">Copied manager</span>
+              <span className="add-info-title">Copied Manager</span>
               <span className="mb-2 add-info-description">{dManager}</span>
             </Col>
           </Row>
