@@ -11,20 +11,19 @@
   backdrop-filter: blur(3px);
   background-color: rgba(40, 104, 174, 0.43);
 }
-.element-container{
+.element-container {
   cursor: pointer;
-  width:100%;
+  width: 100%;
 }
-.element-container:active{
+.element-container:hover {
   background-color: #2765ac;
 }
-.side-bar-icon{
-  color:#fff;
+.side-bar-icon {
+  color: #fff;
   font-size: 2.8rem;
 }
-.side-text{
+.side-text {
   color: white;
   font-size: 0.75rem;
   text-align: center;
-
 }

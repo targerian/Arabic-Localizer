@@ -127,16 +127,29 @@
 }
 .additional-info {
   position: absolute;
-  top: 105%;
-  right: 0;
+  top: 110%;
+  right: -10%;
   z-index: 2;
   background-color: #fff;
   color: var(--black);
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   border: solid 1px #eaeef0;
+  filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
+}
+
+.additional-info::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 100%;
+  right: 16%;
+  border: 0.75rem solid transparent;
+  border-top: none;
+  border-bottom-color: #fff;
+  filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
 }
 .add-info-title {
-  font-size: 0.5rem;
+  font-size: 0.6rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -147,7 +160,7 @@
   white-space: nowrap;
 }
 .add-info-description {
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;

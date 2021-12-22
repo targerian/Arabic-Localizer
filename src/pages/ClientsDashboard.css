@@ -10,26 +10,22 @@
   padding-left: 7vw;
 }
 
-
-
-.search-label{
+.search-label {
   min-height: 30px;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-
 }
 
 .search-input {
   min-height: 30px !important;
   height: 30px !important;
-  border:none !important;
+  border: none !important;
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
   font-size: 1rem !important;
-
 }
 .search-input:focus {
-box-shadow: none!important;  
+  box-shadow: none !important;
 }
 
 .search-icon {
@@ -53,6 +49,11 @@ box-shadow: none!important;
   color: #fff;
   width: 150px;
 }
+.weekends span::before {
+  content: "+";
+  font-weight: bold;
+  font-size: 1.1rem;
+}
 .weekends:hover {
   color: var(--weekend);
   background-color: #fff;
@@ -63,7 +64,7 @@ box-shadow: none!important;
   gap: 2.5%;
   z-index: 0;
   flex-flow: row wrap;
-  width:100%;
+  width: 100%;
 }
 @media screen and (max-width: 767px) {
   .weekends {
