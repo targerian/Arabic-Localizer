@@ -19,30 +19,43 @@ const FormModal = ({ setModalOpen }) => {
     dManager: "",
     workFromHome: false,
   });
+  const [ errors, setErrors ] = useState({});
   //====================================================
   const { clientsData, setClientsData } = useContext(clientsContext);
 
+  //=========================================================
+
+  // checking validity schema
+
   const checkValidity = () => {
-    const { name, sDate, role, phone } = form;
+    const { name, sDate, role, phone, email,department, attendance } = form;
     const newErrors = {};
     // name errors
-    if (!name || name === "") newErrors.name = "cannot be blank!";
-    if (!sDate || sDate === "") newErrors.sDate = "cannot be blank!";
-    if (!phone || phone === "") newErrors.sDate = "cannot be blank!";
-    if (!role || role === "") newErrors.role = "cannot be blank!";
-    else if (name.length > 30) newErrors.name = "name is too long!";
-    // food errors
+    console.log("checking validity")
+    if (!name || name === "") newErrors.name = "Please enter a valid name!";
+    if (!email || email === "") newErrors.email = "Please enter a valid email address !";
+    if( !email.includes("@") || !email.includes(".")) newErrors.email = "Email must contain @ sign !";
+    if (!sDate || sDate === "") newErrors.sDate = "Please enter a valid start date";
+    if (!phone || phone === "") newErrors.phone = "Please enter a valid phone number";
+    if (!role || role === "") newErrors.role = "Please select a role";
+    if (!department || department === "") newErrors.department = "Please select a department!";
+    if (!attendance || attendance === "") newErrors.attendance = "Please provide your attendance status!";
 
+    else if (name.length > 30) newErrors.name = "Name is too long!";
     return newErrors;
   };
+
+  //==========================================================================
 
   const onSubmit = (e) => {
     const newErrors = checkValidity();
     if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
       e.preventDefault();
       e.stopPropagation();
+      return;
     }
-    setValidated(true);
+    e.preventDefault();
     e.preventDefault();
     const employee = {
       id: new Date().getMilliseconds(),
@@ -61,25 +74,27 @@ const FormModal = ({ setModalOpen }) => {
       dManager: form.dManager,
       workFromHome: form.workFromHome,
     };
-    console.log(employee);
     setClientsData((clientsData) => [...clientsData, employee]);
     setModalOpen(false);
   };
-  //===========================================
 
   //===========================================
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setForm((prevState) => ({ ...prevState, [name]: value }));
+    if ( !!errors[name] ) setErrors({
+      ...errors,
+      [name]: null
+    })
   };
-  //============================
+  //===========================================
+
   const [selectedImage, setSelectedImage] = useState(null);
-  const [validated, setValidated] = useState(false);
 
   return (
     <div className="modal-form-container d-flex justify-content-center align-items-center">
-    <Container className='form-con p-2'>
-      <Form onSubmit={onSubmit} id='form' validated={validated}>
+    <Container className='form-con py-2 px-3'>
+      <Form onSubmit={onSubmit} id='form' noValidate>
         <h3 className='form-header'>New Emplowee</h3>
         <hr className="main-hr"/>
         <h4>Personal info</h4>
@@ -123,9 +138,13 @@ const FormModal = ({ setModalOpen }) => {
                 type='text'
                 placeholder='Your Name'
                 className="form-text-input"
+                isInvalid={ !!errors.name }
                 required
               />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              <Form.Control.Feedback type='invalid'>
+                { errors.name }
+              </Form.Control.Feedback>
+              <Form.Control.Feedback type='valid'>Looks good!</Form.Control.Feedback>
             </Form.Group>
             <Form.Group className='mb-2 form-text-input' controlId='phone'>
               <Form.Label className="form-text-input">Telephone number</Form.Label>
@@ -134,9 +153,13 @@ const FormModal = ({ setModalOpen }) => {
                 onChange={handleFormChange}
                 value={form.phone}
                 name='phone'
+                isInvalid={ !!errors.phone }
                 required
                 className="form-text-input"
               />
+              <Form.Control.Feedback type='invalid'>
+                { errors.phone }
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
           <Col xs={12} md={4}>
@@ -147,9 +170,13 @@ const FormModal = ({ setModalOpen }) => {
                 onChange={handleFormChange}
                 value={form.sDate}
                 name='sDate'
+                isInvalid={ !!errors.sDate }
                 required
                 className="form-text-input"
               />
+              <Form.Control.Feedback type='invalid'>
+                { errors.sDate }
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className='mb-2 form-text-input' controlId='email'>
               <Form.Label className="form-text-input">Email address</Form.Label>
@@ -160,8 +187,12 @@ const FormModal = ({ setModalOpen }) => {
                 value={form.email}
                 name='email'
                 className="form-text-input"
+                isInvalid={ !!errors.email }
                 required
               />
+              <Form.Control.Feedback type='invalid'>
+                { errors.email }
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Row>
@@ -175,6 +206,7 @@ const FormModal = ({ setModalOpen }) => {
             value={form.office}
             name='office'
             className="form-text-input"
+            isInvalid={ !!errors.office }
             required
           >
             <option>Select</option>
@@ -182,6 +214,9 @@ const FormModal = ({ setModalOpen }) => {
             <option value='office2'>Office 2</option>
             <option value='office3'>Office 3</option>
           </Form.Select>
+          <Form.Control.Feedback type='invalid'>
+                { errors.office }
+              </Form.Control.Feedback>
         </Form.Group>
         <Row>
           <Col xs={12} md={6}>
@@ -193,6 +228,7 @@ const FormModal = ({ setModalOpen }) => {
                 value={form.department}
                 name='department'
                 className="form-text-input"
+                isInvalid={ !!errors.department }
                 required
               >
                 <option value="">Select</option>
@@ -200,6 +236,9 @@ const FormModal = ({ setModalOpen }) => {
                 <option value='dep2'>Department 2</option>
                 <option value='dep2'>Department 3</option>
               </Form.Select>
+              <Form.Control.Feedback type='invalid'>
+                { errors.department }
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
           <Col xs={12} md={6}>
@@ -211,6 +250,7 @@ const FormModal = ({ setModalOpen }) => {
                 value={form.attendance}
                 name='attendance'
                 className="form-text-input"
+                isInvalid={ !!errors.attendance }
                 required
               >
                 <option value="">Select</option>
@@ -220,6 +260,9 @@ const FormModal = ({ setModalOpen }) => {
                 <option value='holdiay'>Holiday</option>
                 <option value=' '>On leave</option>
               </Form.Select>
+              <Form.Control.Feedback type='invalid'>
+                { errors.attendance }
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Row>
@@ -233,6 +276,7 @@ const FormModal = ({ setModalOpen }) => {
                 value={form.role}
                 name='role'
                 className="form-text-input"
+                isInvalid={ !!errors.role }
                 required
               >
                 <option value="">Select</option>
@@ -241,6 +285,9 @@ const FormModal = ({ setModalOpen }) => {
                 <option value='Backend Developer'>Backend Developer</option>
                 <option value='Dev Ops'>Dev Ops</option>
               </Form.Select>
+              <Form.Control.Feedback type='invalid'>
+                { errors.role }
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
           <Col xs={12} md={6}>
@@ -252,6 +299,7 @@ const FormModal = ({ setModalOpen }) => {
                 value={form.position}
                 name='position'
                 className="form-text-input"
+                isInvalid={ !!errors.position }
                 required
               >
                 <option>Select</option>
@@ -260,6 +308,9 @@ const FormModal = ({ setModalOpen }) => {
                 <option value='position 3'>Position 3</option>
                 <option value='position 4'>Position 4</option>
               </Form.Select>
+              <Form.Control.Feedback type='invalid'>
+                { errors.position }
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
           <Col xs={12} md={6}>
@@ -271,13 +322,18 @@ const FormModal = ({ setModalOpen }) => {
                 value={form.dManager}
                 name='dManager'
                 className="form-text-input"
+                // isInvalid={ !!errors.dManager }
+
               >
-                <option>Select</option>
+                <option>Select option</option>
                 <option value='manager1'>Manager 1</option>
                 <option value='manager2'>Manager 2</option>
                 <option value='manager3'>Manager 3</option>
                 <option value='manager4'>Manager 4</option>
               </Form.Select>
+              <Form.Control.Feedback type='invalid'>
+                { errors.dManager }
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Row>
