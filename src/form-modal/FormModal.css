@@ -39,6 +39,7 @@
   letter-spacing: normal;
   text-align: left;
   color: #23aaeb;
+  margin-bottom: 0.2rem !important;
 }
 .main-hr {
   border: solid 1px #23aaeb;
@@ -50,7 +51,7 @@
   border-radius: 3px;
   background-color: rgba(35, 170, 235, 0.54);
   margin-top: 0vh;
-  margin-bottom: 1vh;
+  margin-bottom: 1.5vh;
 }
 .bs-img-upload {
   border: 2px dashed #707070;
@@ -99,14 +100,44 @@
 option {
   font-size: 0.813rem;
 }
+.form-check-input {
+  box-shadow: none !important;
+}
+.form-check-input:checked {
+  background-color: #2764ac !important;
+  border-color: #2764ac !important;
+}
 .form-btn {
   min-width: 85px;
+  height: 30px;
   font-size: 0.813rem !important;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.15;
   letter-spacing: normal;
   text-align: center;
+  border: none !important;
+}
+.save {
+  background-color: #23aaeb !important;
+}
+.cancel {
+  background-color: #ff6a6a !important;
+}
+.form-check-label {
+  font-family: Roboto;
+  font-size: 0.813rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #313030;
+}
+@media screen and (max-width: 1680px) {
+  .form-con {
+    transform: scaleY(0.95);
+  }
 }
 
 @media screen and (max-width: 768px) {

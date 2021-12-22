@@ -110,7 +110,7 @@ const FormModal = ({ setModalOpen }) => {
           <hr className="main-hr" />
           <h4>Personal info</h4>
           <hr className="sub-hr" />
-          <Row className="mb-2">
+          <Row className="mb-3">
             <Col xs={12} md={4}>
               <div className="bs-img-upload">
                 <input
@@ -147,7 +147,6 @@ const FormModal = ({ setModalOpen }) => {
                   value={form.name}
                   name="name"
                   type="text"
-                  placeholder="Your Name"
                   className="form-text-input"
                   isInvalid={!!errors.name}
                   required
@@ -195,7 +194,7 @@ const FormModal = ({ setModalOpen }) => {
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
                   type="email"
-                  placeholder="name@example.com"
+                  placeholder="Email"
                   onChange={handleFormChange}
                   value={form.email}
                   name="email"
@@ -351,7 +350,7 @@ const FormModal = ({ setModalOpen }) => {
           </Row>
           <h4>work from home</h4>
           <hr className="sub-hr" />
-          <Row className="mt-4">
+          <Row className="mt-2">
             <Form.Group id="workFromHome">
               <Form.Check
                 type="checkbox"
@@ -369,16 +368,19 @@ const FormModal = ({ setModalOpen }) => {
           </Row>
           <hr />
           <div className="d-flex flex-column flex-md-row justify-content-end gap-2">
-            <Button className="form-btn " type="submit">
-              Submit
-            </Button>
             <Button
               bg="danger"
               size="lg"
-              className="form-btn  bg-danger"
+              className="form-btn cancel form-btn d-flex justify-content-center align-items-center"
               onClick={() => setModalOpen(false)}
             >
               Cancel
+            </Button>
+            <Button
+              className="form-btn save d-flex justify-content-center align-items-center "
+              type="submit"
+            >
+              Save
             </Button>
           </div>
         </Form>

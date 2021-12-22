@@ -48,7 +48,7 @@
   border-radius: 0.313rem;
   background-color: var(--weekend);
   color: #fff;
-  width: 150px;
+  width: 101px;
 }
 .weekends span {
   font-size: 0.82rem;
@@ -66,9 +66,10 @@
   border: 1px solid var(--weekend);
 }
 .cards-container {
+  position: relative;
   margin-top: 4vh;
   gap: 2.5%;
-  z-index: 0;
+  /* z-index: 0; */
   flex-flow: row wrap;
   width: 100%;
 }
