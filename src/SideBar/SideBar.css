@@ -6,11 +6,7 @@
   width: 5.9vw;
   height: 100vh;
 }
-.blurred {
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
-  background-color: rgba(40, 104, 174, 0.43);
-}
+
 .element-container {
   cursor: pointer;
   width: 100%;
@@ -26,4 +22,27 @@
   color: white;
   font-size: 0.75rem;
   text-align: center;
+}
+@media screen and (max-width: 1090px) {
+  .side-bar-container {
+    width: 7vw;
+  }
+  .side-bar-icon {
+    font-size: 2rem;
+  }
+  .side-text {
+    font-size: 0.65rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .side-bar-container {
+    width: 7vw;
+  }
+  .side-bar-icon {
+    font-size: 1.5rem;
+  }
+  .side-text {
+    display: none;
+  }
 }
