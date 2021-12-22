@@ -43,16 +43,21 @@
   font-size: 0.82rem;
   align-items: center;
   height: 30px;
-  padding: 0.438rem 1.025rem;
+  padding: 0.438rem 0.525rem;
   border-radius: 0.313rem;
   background-color: var(--weekend);
   color: #fff;
   width: 150px;
 }
-.weekends span::before {
-  content: "+";
+.weekends span {
+  font-size: 0.82rem;
+}
+.weekends .plus {
+  font-size: 1.3rem;
   font-weight: bold;
-  font-size: 1.1rem;
+  margin-right: 4px;
+  position: relative;
+  top: -1px;
 }
 .weekends:hover {
   color: var(--weekend);

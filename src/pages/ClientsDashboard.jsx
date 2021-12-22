@@ -59,7 +59,8 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
             className="mt-4 mt-md-0 weekends"
             onClick={() => setModalOpen(true)}
           >
-            <span> Add now</span>
+            <span className="plus">+</span>
+            <span>Add now</span>
           </button>
         </div>
         {/* ======================================================================== */}
