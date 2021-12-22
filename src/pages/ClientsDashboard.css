@@ -2,12 +2,13 @@
   background-color: var(--bg-grey);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   padding: 2.45vh 3vw;
   flex-basis: 1;
   margin: 1vw;
   padding-left: 7vw;
+  height: 100vh;
 }
 
 .search-label {

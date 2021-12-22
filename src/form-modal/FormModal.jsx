@@ -104,9 +104,9 @@ const FormModal = ({ setModalOpen }) => {
 
   return (
     <div className="modal-form-container d-flex justify-content-center align-items-start align-items-md-start">
-      <Container className="form-con pt-2 pb-4 pb-md-2 px-3">
+      <Container className="form-con pt-2 pb-4 pb-md-3 px-4">
         <Form onSubmit={onSubmit} id="form" noValidate>
-          <h3 className="form-header">New Emplowee</h3>
+          <h3 className="form-header">NEW EMPLOYEE</h3>
           <hr className="main-hr" />
           <h4>Personal info</h4>
           <hr className="sub-hr" />
@@ -140,8 +140,8 @@ const FormModal = ({ setModalOpen }) => {
               </div>
             </Col>
             <Col xs={12} md={4}>
-              <Form.Group className="mb-2 form-text-input" controlId="name">
-                <Form.Label className="form-text-input">Name</Form.Label>
+              <Form.Group className="mb-3" controlId="name">
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                   onChange={handleFormChange}
                   value={form.name}
@@ -159,10 +159,8 @@ const FormModal = ({ setModalOpen }) => {
                   Looks good!
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group className="mb-2 form-text-input" controlId="phone">
-                <Form.Label className="form-text-input">
-                  Telephone number
-                </Form.Label>
+              <Form.Group className="mb-3 mb-md-0" controlId="phone">
+                <Form.Label>Telephone number</Form.Label>
                 <Form.Control
                   type="tel"
                   onChange={handleFormChange}
@@ -178,8 +176,8 @@ const FormModal = ({ setModalOpen }) => {
               </Form.Group>
             </Col>
             <Col xs={12} md={4}>
-              <Form.Group className="mb-2 form-text-input" controlId="sDate">
-                <Form.Label className="form-text-input">Start Date</Form.Label>
+              <Form.Group className="mb-3 " controlId="sDate">
+                <Form.Label>Start Date</Form.Label>
                 <Form.Control
                   type="date"
                   onChange={handleFormChange}
@@ -193,10 +191,8 @@ const FormModal = ({ setModalOpen }) => {
                   {errors.sDate}
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group className="mb-2 form-text-input" controlId="email">
-                <Form.Label className="form-text-input">
-                  Email address
-                </Form.Label>
+              <Form.Group className="mb-3 mb-md-0" controlId="email">
+                <Form.Label>Email address</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="name@example.com"
@@ -207,7 +203,7 @@ const FormModal = ({ setModalOpen }) => {
                   isInvalid={!!errors.email}
                   required
                 />
-                <Form.Control.Feedback type="invalid">
+                <Form.Control.Feedback className="feedback" type="invalid">
                   {errors.email}
                 </Form.Control.Feedback>
               </Form.Group>
@@ -215,8 +211,8 @@ const FormModal = ({ setModalOpen }) => {
           </Row>
           <h4>Office info</h4>
           <hr className="sub-hr" />
-          <Form.Group required className="mb-2" controlId="office">
-            <Form.Label className="form-text-input">Office</Form.Label>
+          <Form.Group required className="mb-3 relative-row" controlId="office">
+            <Form.Label>Office</Form.Label>
             <Form.Select
               aria-label="Default select example"
               onChange={handleFormChange}
@@ -236,9 +232,9 @@ const FormModal = ({ setModalOpen }) => {
             </Form.Control.Feedback>
           </Form.Group>
           <Row>
-            <Col xs={12} md={6}>
-              <Form.Group className="mb-2" controlId="department">
-                <Form.Label className="form-text-input">Department</Form.Label>
+            <Col xs={12} md={6} className="relative-row">
+              <Form.Group className="mb-3" controlId="department">
+                <Form.Label>Department</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
                   onChange={handleFormChange}
@@ -258,11 +254,9 @@ const FormModal = ({ setModalOpen }) => {
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
-            <Col xs={12} md={6}>
-              <Form.Group className="mb-2" controlId="attendance">
-                <Form.Label className="form-text-input">
-                  Attendance profile
-                </Form.Label>
+            <Col xs={12} md={6} className="relative-row">
+              <Form.Group className="mb-3" controlId="attendance">
+                <Form.Label>Attendance profile</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
                   onChange={handleFormChange}
@@ -286,9 +280,9 @@ const FormModal = ({ setModalOpen }) => {
             </Col>
           </Row>
           <Row>
-            <Col xs={12} md={6}>
-              <Form.Group className="mb-2" controlId="role">
-                <Form.Label className="form-text-input">Role</Form.Label>
+            <Col xs={12} md={6} className="relative-row">
+              <Form.Group className="mb-3" controlId="role">
+                <Form.Label>Role</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
                   onChange={handleFormChange}
@@ -309,9 +303,9 @@ const FormModal = ({ setModalOpen }) => {
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
-            <Col xs={12} md={6}>
-              <Form.Group className="mb-2" controlId="position">
-                <Form.Label className="form-text-input">Positiion</Form.Label>
+            <Col xs={12} md={6} className="relative-row">
+              <Form.Group className="mb-3" controlId="position">
+                <Form.Label>Position</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
                   onChange={handleFormChange}
@@ -332,11 +326,9 @@ const FormModal = ({ setModalOpen }) => {
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
-            <Col xs={12} md={6}>
-              <Form.Group className="mb-2" controlId="dManager">
-                <Form.Label className="form-text-input">
-                  Direct Manager
-                </Form.Label>
+            <Col xs={12} md={6} className="relative-row">
+              <Form.Group className="mb-3" controlId="dManager">
+                <Form.Label>Direct Manager</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
                   onChange={handleFormChange}
@@ -363,7 +355,7 @@ const FormModal = ({ setModalOpen }) => {
             <Form.Group id="workFromHome">
               <Form.Check
                 type="checkbox"
-                label="Allow emplowee to work from home"
+                label="Allow Employee To Work From Home"
                 onChange={() =>
                   setForm((prev) => ({
                     ...prev,

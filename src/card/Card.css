@@ -1,6 +1,6 @@
 .card-info h5 {
-  color: var(--black);
-  font-weight: 700 !important;
+  font-family: "Lato";
+  font-weight: normal;
   color: #5c6974 !important;
   font-stretch: normal;
   line-height: 1.2;
@@ -84,6 +84,8 @@
   text-overflow: ellipsis;
 }
 .attendance-statue {
+  font-family: Lato;
+  font-weight: 500;
   width: 80px;
   height: 17px;
   padding: 1.1vh 1.8vw;
@@ -117,7 +119,7 @@
   width: 20px;
   height: 20px;
   border-radius: 10px;
-  background-color: #f7f8f9;
+  background-color: #eaeef0;
 }
 .card-icon-container:hover {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26), 0 2px 10px 0 rgba(0, 0, 0, 0.22);
