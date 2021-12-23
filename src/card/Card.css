@@ -48,7 +48,6 @@
   z-index: 0;
 }
 .card-img-options {
-  justify-content: center;
 }
 .hr-card-img {
   width: 64px;
@@ -56,15 +55,16 @@
   border-radius: 32px;
 }
 .image-options-container {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 10%;
+  justify-content: space-around;
 }
 .img-options {
   color: var(--leave);
   cursor: pointer;
+  font-size: 0.8rem;
 }
 .img-options:hover {
   color: var(--absent);
@@ -89,7 +89,6 @@
   font-weight: 500;
   width: 80px;
   height: 17px;
-  padding: 1.1vh 1.8vw;
   border-radius: 2px;
   display: flex;
   justify-content: center;
@@ -187,12 +186,12 @@
 
 @media screen and (max-width: 600px) {
   .hr-card-container {
-    width: 70vw;
+    width: 77vw;
     justify-content: center;
   }
   .hr-card-img {
-    width: 10vw;
-    height: 10vw;
-    border-radius: 5vw;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
   }
 }

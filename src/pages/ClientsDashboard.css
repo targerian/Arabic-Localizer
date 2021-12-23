@@ -4,10 +4,10 @@
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  padding: 2.45vh 3vw;
+  padding: 2.45vh 1vw;
   flex-basis: 1;
   margin: 1vw;
-  padding-left: 7vw;
+  padding-left: 8.5vw;
   height: 100vh;
 }
 
@@ -44,7 +44,6 @@
   font-size: 0.82rem;
   align-items: center;
   height: 30px;
-  padding: 0.438rem 0.525rem;
   border-radius: 0.313rem;
   background-color: var(--weekend);
   color: #fff;
@@ -74,8 +73,11 @@
   width: 100%;
 }
 @media screen and (max-width: 767px) {
+  .dashbord-container {
+    padding-right: 2vw;
+  }
   .weekends {
-    width: 90vw;
+    width: 80vw;
     margin: 0 auto;
   }
 }

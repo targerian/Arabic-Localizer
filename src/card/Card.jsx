@@ -22,9 +22,9 @@ const Card = ({
   const [AdditionalInfo, setAdditionalInfo] = useState(false);
   return (
     <div
-      className={`py-2  px-3 d-flex flex-row justify-content-start align-items-start hr-card-container `}
+      className={`py-2  px-2 px-md-3 d-flex flex-row justify-content-start align-items-start hr-card-container `}
     >
-      <div className="card-img-options d-flex flex-column gap-2">
+      <div className="card-img-options d-flex flex-column justify-content-center align-items-center gap-4 gap-md-2">
         <img className="hr-card-img" src={img} alt="client" />
         <div className="image-options-container">
           <MdModeEditOutline className="img-options" />

@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.438rem 1.625rem 0.313rem 1.625rem;
+  width: 94px;
   border-radius: 0.313rem;
   height: 30px;
   line-height: 1.15;
@@ -31,7 +31,7 @@ button {
 @media screen and (max-width: 900px) {
   .btn-container {
     font-size: 1rem;
-
+    margin-left: 8vw;
     /* width: 70vw; */
   }
 }

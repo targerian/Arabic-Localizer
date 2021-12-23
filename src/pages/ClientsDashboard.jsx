@@ -1,6 +1,4 @@
 import React, { useContext, useState } from "react";
-import Btn from "../Btn/Btn";
-import Input from "../Input/Input";
 import "./ClientsDashboard.css";
 import { BiSearch } from "react-icons/bi";
 import Card from "../card/Card";
@@ -56,7 +54,7 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
             />
           </div>
           <button
-            className="mt-4 mt-md-0 weekends"
+            className="mt-4 mt-md-0 ms-md-2 weekends"
             onClick={() => setModalOpen(true)}
           >
             <span className="plus">+</span>
