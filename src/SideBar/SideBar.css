@@ -5,6 +5,8 @@
   top: 0;
   width: 5.9vw;
   height: 100vh;
+  padding-top: 6vh;
+  padding-bottom: 6vh;
 }
 
 .element-container {
@@ -44,5 +46,10 @@
   }
   .side-text {
     display: none;
+  }
+}
+@media screen and (max-width: 420px) {
+  .side-bar-container {
+    width: 9vw;
   }
 }

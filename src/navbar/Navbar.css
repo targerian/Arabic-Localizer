@@ -69,15 +69,7 @@
   position: relative;
   top: 50%;
 }
-.ham-menu {
-  position: absolute;
-  font-size: 1.6rem;
-  left: 2vw;
-  top: 2vw;
-  color: #39a4dc;
-  z-index: 1;
-  cursor: pointer;
-}
+
 @media screen and (max-width: 1300px) {
   .nav-img {
     width: 26px;

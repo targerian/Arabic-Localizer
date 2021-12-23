@@ -6,7 +6,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
 import { ImPhoneHangUp } from "react-icons/im";
 import { BsExclamation } from "react-icons/bs";
-import { Col, Row } from "react-bootstrap";
+import { Col, OverlayTrigger, Popover, Row, Tooltip } from "react-bootstrap";
 
 const Card = ({
   name,
@@ -19,7 +19,34 @@ const Card = ({
   sDate,
   dManager,
 }) => {
-  const [AdditionalInfo, setAdditionalInfo] = useState(false);
+  const [AdditionalInfo, setAdditionalInfo] = useState(true);
+
+  //=================================================================================================
+  const popover = (
+    <Popover id="popover-basic" className="additional-info">
+      <div className="d-flex flex-row justify-content-center align-items-center p-2 ">
+        <Row>
+          <Col className="d-flex flex-column align-items-start">
+            <span className="add-info-title">Office</span>
+            <span className="mb-2 add-info-description">{office}</span>
+            <span className="add-info-title">Joining Date</span>
+            <span className="mb-2 add-info-description">{sDate}</span>
+          </Col>
+          <Col className="d-flex flex-column align-items-start">
+            <span className="add-info-title">Role</span>
+            <span className="mb-2 add-info-description">{role}</span>
+            <span className="add-info-title">Manager</span>
+            <span className="mb-2 add-info-description">{dManager}</span>
+          </Col>
+          <Col className="d-flex flex-column align-items-start">
+            <span className="add-info-title">Copied Manager</span>
+            <span className="mb-2 add-info-description">{dManager}</span>
+          </Col>
+        </Row>
+      </div>
+    </Popover>
+  );
+
   return (
     <div
       className={`py-2  px-2 px-md-3 d-flex flex-row justify-content-start align-items-start hr-card-container `}
@@ -48,16 +75,18 @@ const Card = ({
           <div className="card-icon-container d-flex justify-content-center align-items-center">
             <ImPhoneHangUp className="card-icon" />
           </div>
-          <div
-            className="card-icon-container d-flex justify-content-center align-items-center"
-            onMouseEnter={() => setAdditionalInfo(true)}
-            onMouseLeave={() => setAdditionalInfo(false)}
-          >
-            <BsExclamation className="card-icon" />
-          </div>
+          <OverlayTrigger key="bottom" placement="bottom" overlay={popover}>
+            <div
+              className="card-icon-container d-flex justify-content-center align-items-center"
+              // onMouseEnter={() => setAdditionalInfo(true)}
+              // onMouseLeave={() => setAdditionalInfo(false)}
+            >
+              <BsExclamation className="card-icon" />
+            </div>
+          </OverlayTrigger>
         </div>
       </div>
-      {AdditionalInfo && (
+      {/* {AdditionalInfo && (
         <div className="d-flex flex-row justify-content-center align-items-center p-2 additional-info">
           <Row>
             <Col className="d-flex flex-column align-items-start">
@@ -78,7 +107,7 @@ const Card = ({
             </Col>
           </Row>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

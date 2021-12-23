@@ -7,14 +7,14 @@
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
   background-color: rgba(40, 104, 174, 0.43);
-  z-index: 1;
+  z-index: 9;
   padding-top: 10vh;
 }
 .form-con {
   position: relative;
   width: 65% !important;
   font-family: Roboto;
-  z-index: 100 !important;
+  z-index: 99 !important;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);

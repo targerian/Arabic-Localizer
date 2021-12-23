@@ -15,15 +15,15 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <div className='App'>
+    <div className="App">
       <BrowserRouter>
         <clientsContext.Provider value={clienstValue}>
           <SideBar modalOpen={modalOpen} />
           <NavBar modalOpen={modalOpen} />
           <Routes>
-            <Route path='/sign' element={<Sign />} />
+            <Route exact path="/sign" element={<Sign />} />
             <Route
-              path='/'
+              path="/"
               element={
                 <ClientsDashboard
                   setModalOpen={setModalOpen}

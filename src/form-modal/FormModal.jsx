@@ -51,7 +51,7 @@ const FormModal = ({ setModalOpen }) => {
       newErrors.department = "Please select a department!";
     if (!attendance || attendance === "")
       newErrors.attendance = "Please provide your attendance status!";
-    else if (name.length > 30) newErrors.name = "Name is too long!";
+    else if (name.length > 40) newErrors.name = "Name is too long!";
     return newErrors;
   };
 
@@ -104,7 +104,7 @@ const FormModal = ({ setModalOpen }) => {
 
   return (
     <div className="modal-form-container d-flex justify-content-center align-items-start align-items-md-start">
-      <Container className="form-con pt-2 pb-4 pb-md-3 px-4">
+      <Container className="form-con pt-3 pb-4 pb-md-3 px-4">
         <Form onSubmit={onSubmit} id="form" noValidate>
           <h3 className="form-header">NEW EMPLOYEE</h3>
           <hr className="main-hr" />
@@ -159,7 +159,7 @@ const FormModal = ({ setModalOpen }) => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3 mb-md-0" controlId="phone">
-                <Form.Label>Telephone number</Form.Label>
+                <Form.Label>Phone</Form.Label>
                 <Form.Control
                   type="tel"
                   onChange={handleFormChange}
@@ -191,7 +191,7 @@ const FormModal = ({ setModalOpen }) => {
                 </Form.Control.Feedback>
               </Form.Group>
               <Form.Group className="mb-3 mb-md-0" controlId="email">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Email"
@@ -208,7 +208,7 @@ const FormModal = ({ setModalOpen }) => {
               </Form.Group>
             </Col>
           </Row>
-          <h4>Office info</h4>
+          <h4>Office Info</h4>
           <hr className="sub-hr" />
           <Form.Group required className="mb-3 relative-row" controlId="office">
             <Form.Label>Office</Form.Label>
@@ -221,7 +221,7 @@ const FormModal = ({ setModalOpen }) => {
               isInvalid={!!errors.office}
               required
             >
-              <option>Select</option>
+              <option>Name</option>
               <option value="office1">Office 1</option>
               <option value="office2">Office 2</option>
               <option value="office3">Office 3</option>
@@ -255,7 +255,7 @@ const FormModal = ({ setModalOpen }) => {
             </Col>
             <Col xs={12} md={6} className="relative-row">
               <Form.Group className="mb-3" controlId="attendance">
-                <Form.Label>Attendance profile</Form.Label>
+                <Form.Label>Attendance Profile</Form.Label>
                 <Form.Select
                   aria-label="Default select example"
                   onChange={handleFormChange}
@@ -336,7 +336,7 @@ const FormModal = ({ setModalOpen }) => {
                   className="form-text-input"
                   // isInvalid={ !!errors.dManager }
                 >
-                  <option>Select option</option>
+                  <option>Select Option</option>
                   <option value="manager1">Manager 1</option>
                   <option value="manager2">Manager 2</option>
                   <option value="manager3">Manager 3</option>

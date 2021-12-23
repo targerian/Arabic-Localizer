@@ -7,8 +7,8 @@
   padding: 2.45vh 1vw;
   flex-basis: 1;
   margin: 1vw;
-  padding-left: 8.5vw;
-  height: 100vh;
+  padding-left: 7.5vw;
+  min-height: 95vh;
 }
 
 .search-label {
@@ -65,10 +65,8 @@
   border: 1px solid var(--weekend);
 }
 .cards-container {
-  position: relative;
   margin-top: 4vh;
-  gap: 2.5%;
-  /* z-index: 0; */
+  gap: 2%;
   flex-flow: row wrap;
   width: 100%;
 }
