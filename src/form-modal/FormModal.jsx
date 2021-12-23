@@ -348,7 +348,7 @@ const FormModal = ({ setModalOpen }) => {
               </Form.Group>
             </Col>
           </Row>
-          <h4>work from home</h4>
+          <h4>Work from home</h4>
           <hr className="sub-hr" />
           <Row className="mt-2">
             <Form.Group id="workFromHome">
