@@ -111,8 +111,8 @@ const FormModal = ({ setModalOpen }) => {
           <h4>Personal info</h4>
           <hr className="sub-hr" />
           <Row className="mb-3">
-            <Col xs={12} md={4}>
-              <div className="bs-img-upload">
+            <Col xs={12} md={3}>
+              <div className="bs-img-upload ">
                 <input
                   type="file"
                   id="file"
@@ -139,7 +139,7 @@ const FormModal = ({ setModalOpen }) => {
                 </label>
               </div>
             </Col>
-            <Col xs={12} md={4}>
+            <Col xs={12} md="auto" className="flex-fill">
               <Form.Group className="mb-3" controlId="name">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
@@ -174,7 +174,7 @@ const FormModal = ({ setModalOpen }) => {
                 </Form.Control.Feedback>
               </Form.Group>
             </Col>
-            <Col xs={12} md={4}>
+            <Col xs={12} md="auto" className="flex-fill">
               <Form.Group className="mb-3 " controlId="sDate">
                 <Form.Label>Start Date</Form.Label>
                 <Form.Control

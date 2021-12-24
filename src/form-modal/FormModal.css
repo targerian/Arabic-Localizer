@@ -51,7 +51,7 @@
   border-radius: 3px;
   background-color: rgba(35, 170, 235, 0.54);
   margin-top: 0vh;
-  margin-bottom: 1.5vh;
+  margin-bottom: 0.875rem;
 }
 .bs-img-upload {
   border: 2px dashed #707070;
@@ -102,6 +102,7 @@ option {
 }
 .form-check-input {
   box-shadow: none !important;
+  margin-right: 0.813rem !important;
 }
 .form-check-input:checked {
   background-color: #2764ac !important;
