@@ -180,7 +180,7 @@
 
 @media screen and (max-width: 600px) {
   .hr-card-container {
-    width: 77vw;
+    width: 78vw;
     justify-content: center;
   }
   .hr-card-img {
@@ -192,6 +192,6 @@
     gap: 0.5rem;
   }
   .card-icon-container {
-    margin-left: 0.09rem;
+    margin-left: 0.05rem;
   }
 }

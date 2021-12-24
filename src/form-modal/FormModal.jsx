@@ -104,7 +104,7 @@ const FormModal = ({ setModalOpen }) => {
 
   return (
     <div className="modal-form-container d-flex justify-content-center align-items-start align-items-md-start">
-      <Container className="form-con pt-3 pb-4 pb-md-3 px-4">
+      <Container className="form-con pt-3 pb-4 pb-md-3 ps-4 pe-4 pe-lg-5">
         <Form onSubmit={onSubmit} id="form" noValidate>
           <h3 className="form-header">NEW EMPLOYEE</h3>
           <hr className="main-hr" />
@@ -217,7 +217,7 @@ const FormModal = ({ setModalOpen }) => {
               onChange={handleFormChange}
               value={form.office}
               name="office"
-              className="form-text-input"
+              className="form-text-input form-select-extrapadding "
               isInvalid={!!errors.office}
               required
             >
@@ -239,7 +239,7 @@ const FormModal = ({ setModalOpen }) => {
                   onChange={handleFormChange}
                   value={form.department}
                   name="department"
-                  className="form-text-input"
+                  className="form-text-input form-select-extrapadding"
                   isInvalid={!!errors.department}
                   required
                 >
@@ -287,7 +287,7 @@ const FormModal = ({ setModalOpen }) => {
                   onChange={handleFormChange}
                   value={form.role}
                   name="role"
-                  className="form-text-input"
+                  className="form-text-input form-select-extrapadding"
                   isInvalid={!!errors.role}
                   required
                 >
@@ -333,7 +333,7 @@ const FormModal = ({ setModalOpen }) => {
                   onChange={handleFormChange}
                   value={form.dManager}
                   name="dManager"
-                  className="form-text-input"
+                  className="form-text-input form-select-extrapadding"
                   // isInvalid={ !!errors.dManager }
                 >
                   <option>Select Option</option>
@@ -367,7 +367,7 @@ const FormModal = ({ setModalOpen }) => {
             </Form.Group>
           </Row>
           <hr />
-          <div className="d-flex flex-column flex-md-row justify-content-end gap-2">
+          <div className="d-flex flex-column flex-md-row justify-content-end align-items-center gap-3">
             <Button
               bg="danger"
               size="lg"

@@ -68,7 +68,7 @@ const Card = ({
         <div className={`attendance-statue ${attendance}`}>
           {attendance && attendance[0].toUpperCase() + attendance.substring(1)}
         </div>
-        <div className="position-absolute bottom-0 end-0 pb-2 pe-3 d-flex flex-row justify-content-center align-items-center gap-1">
+        <div className="position-absolute bottom-0 end-0 pb-2 pe-1 pe-sm-3 d-flex flex-row justify-content-center align-items-center gap-1">
           <div className="card-icon-container d-flex justify-content-center align-items-center">
             <MdEmail className="card-icon" />
           </div>

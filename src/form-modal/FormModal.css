@@ -2,7 +2,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
+  height: 100vh;
   right: 0;
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
@@ -29,6 +29,7 @@
   letter-spacing: 0.99px;
   text-align: left;
   color: #23aaeb;
+  margin-bottom: 0.656rem !important;
 }
 .form-con h4 {
   font-size: 1rem;
@@ -43,7 +44,7 @@
 }
 .main-hr {
   border: solid 1px #23aaeb;
-  margin: 1vh 0;
+  margin: 0.656rem 0;
 }
 .sub-hr {
   width: 44px;
@@ -51,16 +52,17 @@
   border-radius: 3px;
   background-color: rgba(35, 170, 235, 0.54);
   margin-top: 0vh;
-  margin-bottom: 0.875rem;
+  margin-bottom: 1rem;
 }
 .bs-img-upload {
   border: 2px dashed #707070;
-  height: 100%;
+  height: 98%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   position: relative;
+  margin-top: 2%;
 }
 .input-file {
   opacity: 0;
@@ -71,6 +73,7 @@
   position: absolute;
   cursor: pointer;
   color: #5c6974;
+  text-align: center;
 }
 .form-label {
   margin-bottom: 0 !important;
@@ -96,6 +99,9 @@
 .invalid-feedback {
   position: absolute !important;
   font-size: 0.7rem !important;
+}
+.form-select-extrapadding {
+  padding-left: 1.494rem !important;
 }
 option {
   font-size: 0.813rem;
@@ -146,7 +152,20 @@ option {
     width: 88vw !important;
   }
   .modal-form-container {
-    bottom: -50vh;
+    height: 130vh;
     padding-top: 0;
+  }
+  .form-select-extrapadding {
+    padding-left: 0.75rem !important;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .form-check {
+    display: flex !important;
+    align-items: center !important;
+  }
+  .form-check label {
+    font-size: 0.7rem !important;
   }
 }
