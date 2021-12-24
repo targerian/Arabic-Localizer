@@ -18,9 +18,9 @@ const Card = ({
   office,
   sDate,
   dManager,
+  position,
+  copiedManager,
 }) => {
-  const [AdditionalInfo, setAdditionalInfo] = useState(true);
-
   //=================================================================================================
   const popover = (
     <Popover id="popover-basic" className="additional-info">
@@ -39,13 +39,22 @@ const Card = ({
             <span className="mb-2 add-info-description">{dManager}</span>
           </Col>
           <Col className="d-flex flex-column align-items-start">
-            <span className="add-info-title">Copied Manager</span>
-            <span className="mb-2 add-info-description">{dManager}</span>
+            <span className="add-info-title ">Copied Manager</span>
+            <span className="mb-2 add-info-description d-flex flex-column justify-content-center align-items-start">
+              {copiedManager.map((manager) => (
+                <span className="add-info-description">{manager.name}</span>
+              ))}
+            </span>
           </Col>
         </Row>
       </div>
     </Popover>
   );
+
+  const statusClassPicker = (status) => {
+    if (status === "Not signed in") return "not-signed";
+    else return status;
+  };
 
   return (
     <div
@@ -61,11 +70,11 @@ const Card = ({
       </div>
       <div className="card-info ms-2 ">
         <h5 className="text-dark text-truncate">
-          {name && name[0].toUpperCase() + name.substring(1)}
+          {name && name[0].toUpperCase() + name.toLowerCase().substring(1)}
         </h5>
-        <h6>{role}</h6>
+        <h6>{position}</h6>
         <h7 className="text-secondary">{department}</h7>
-        <div className={`attendance-statue ${attendance}`}>
+        <div className={`attendance-statue ${statusClassPicker(attendance)}`}>
           {attendance && attendance[0].toUpperCase() + attendance.substring(1)}
         </div>
         <div className="position-absolute bottom-0 end-0 pb-2 pe-1 pe-sm-3 d-flex flex-row justify-content-center align-items-center gap-1">
@@ -76,11 +85,7 @@ const Card = ({
             <ImPhoneHangUp className="card-icon" />
           </div>
           <OverlayTrigger key="bottom" placement="bottom" overlay={popover}>
-            <div
-              className="card-icon-container d-flex justify-content-center align-items-center"
-              // onMouseEnter={() => setAdditionalInfo(true)}
-              // onMouseLeave={() => setAdditionalInfo(false)}
-            >
+            <div className="card-icon-container d-flex justify-content-center align-items-center">
               <BsExclamation className="card-icon" />
             </div>
           </OverlayTrigger>

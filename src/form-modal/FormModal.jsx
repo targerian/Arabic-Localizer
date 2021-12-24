@@ -3,8 +3,15 @@ import "./FormModal.css";
 import { clientsContext } from "../store/ContextProvider";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { GiTrumpet } from "react-icons/gi";
+import useFetchFormData from "../api/apiHooks/useFetchFormData";
 
 const FormModal = ({ setModalOpen }) => {
+  const { error, res, loading } = useFetchFormData();
+  const offices = res?.company_offices?.data;
+  const departments = res?.departments?.data;
+  const attendance = res?.attendance_profiles?.data;
+  const positions = res?.positions.data;
+  const managers = res?.managers;
   //=================================================
   const [form, setForm] = useState({
     name: "",
@@ -19,13 +26,13 @@ const FormModal = ({ setModalOpen }) => {
     dManager: "",
     workFromHome: false,
   });
-  const [errors, setErrors] = useState({});
   //====================================================
   const { clientsData, setClientsData } = useContext(clientsContext);
 
   //=========================================================
 
   // checking validity schema
+  const [errors, setErrors] = useState({});
 
   const checkValidity = () => {
     const { name, sDate, role, phone, email, department, attendance, office } =
@@ -104,287 +111,295 @@ const FormModal = ({ setModalOpen }) => {
 
   return (
     <div className="modal-form-container d-flex justify-content-center align-items-start align-items-md-start">
-      <Container className="form-con pt-3 pb-4 pb-md-3 ps-4 pe-4 pe-lg-5">
-        <Form onSubmit={onSubmit} id="form" noValidate>
-          <h3 className="form-header">NEW EMPLOYEE</h3>
-          <hr className="main-hr" />
-          <h4>Personal info</h4>
-          <hr className="sub-hr" />
-          <Row className="mb-3">
-            <Col xs={12} md={3}>
-              <div className="bs-img-upload ">
-                <input
-                  type="file"
-                  id="file"
-                  Value=""
-                  className="input-file"
-                  name="myImage"
-                  onChange={(event) => {
-                    console.log(event.target.files[0]);
-                    setSelectedImage(event.target.files[0]);
-                  }}
-                />
-                {selectedImage && (
-                  <div>
-                    <img
-                      alt="not fount"
-                      className="uploaded-img"
-                      src={URL.createObjectURL(selectedImage)}
-                    />
-                    {/* <button onClick={() => setSelectedImage(null)}>Remove</button> */}
-                  </div>
-                )}
-                <label for="file" className="input-file-label">
-                  DRAG IMAGE HERE
-                </label>
-              </div>
-            </Col>
-            <Col xs={12} md="auto" className="flex-fill">
-              <Form.Group className="mb-3" controlId="name">
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  onChange={handleFormChange}
-                  value={form.name}
-                  name="name"
-                  type="text"
-                  className="form-text-input"
-                  isInvalid={!!errors.name}
-                  required
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.name}
-                </Form.Control.Feedback>
-                <Form.Control.Feedback type="valid">
-                  Looks good!
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mb-3 mb-md-0" controlId="phone">
-                <Form.Label>Phone</Form.Label>
-                <Form.Control
-                  type="tel"
-                  onChange={handleFormChange}
-                  value={form.phone}
-                  name="phone"
-                  isInvalid={!!errors.phone}
-                  required
-                  className="form-text-input"
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.phone}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-            <Col xs={12} md="auto" className="flex-fill">
-              <Form.Group className="mb-3 " controlId="sDate">
-                <Form.Label>Start Date</Form.Label>
-                <Form.Control
-                  type="date"
-                  onChange={handleFormChange}
-                  value={form.sDate}
-                  name="sDate"
-                  isInvalid={!!errors.sDate}
-                  required
-                  className="form-text-input"
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.sDate}
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mb-3 mb-md-0" controlId="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Email"
-                  onChange={handleFormChange}
-                  value={form.email}
-                  name="email"
-                  className="form-text-input"
-                  isInvalid={!!errors.email}
-                  required
-                />
-                <Form.Control.Feedback className="feedback" type="invalid">
-                  {errors.email}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-          </Row>
-          <h4>Office Info</h4>
-          <hr className="sub-hr" />
-          <Form.Group required className="mb-3 relative-row" controlId="office">
-            <Form.Label>Office</Form.Label>
-            <Form.Select
-              aria-label="Default select example"
-              onChange={handleFormChange}
-              value={form.office}
-              name="office"
-              className="form-text-input form-select-extrapadding "
-              isInvalid={!!errors.office}
+      {loading ? (
+        <h1>loading</h1>
+      ) : (
+        <Container className="form-con pt-3 pb-4 pb-md-3 ps-4 pe-4 pe-lg-5">
+          <Form onSubmit={onSubmit} id="form" noValidate>
+            <h3 className="form-header">NEW EMPLOYEE</h3>
+            <hr className="main-hr" />
+            <h4>Personal info</h4>
+            <hr className="sub-hr" />
+            <Row className="mb-3">
+              <Col xs={12} md={3}>
+                <div className="bs-img-upload ">
+                  <input
+                    type="file"
+                    id="file"
+                    Value=""
+                    className="input-file"
+                    name="myImage"
+                    onChange={(event) => {
+                      console.log(event.target.files[0]);
+                      setSelectedImage(event.target.files[0]);
+                    }}
+                  />
+                  {selectedImage && (
+                    <div>
+                      <img
+                        alt="not fount"
+                        className="uploaded-img"
+                        src={URL.createObjectURL(selectedImage)}
+                      />
+                      {/* <button onClick={() => setSelectedImage(null)}>Remove</button> */}
+                    </div>
+                  )}
+                  <label for="file" className="input-file-label">
+                    DRAG IMAGE HERE
+                  </label>
+                </div>
+              </Col>
+              <Col xs={12} md="auto" className="flex-fill">
+                <Form.Group className="mb-3" controlId="name">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    onChange={handleFormChange}
+                    value={form.name}
+                    name="name"
+                    type="text"
+                    className="form-text-input"
+                    isInvalid={!!errors.name}
+                    required
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.name}
+                  </Form.Control.Feedback>
+                  <Form.Control.Feedback type="valid">
+                    Looks good!
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="mb-3 mb-md-0" controlId="phone">
+                  <Form.Label>Phone</Form.Label>
+                  <Form.Control
+                    type="tel"
+                    onChange={handleFormChange}
+                    value={form.phone}
+                    name="phone"
+                    isInvalid={!!errors.phone}
+                    required
+                    className="form-text-input"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.phone}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+              <Col xs={12} md="auto" className="flex-fill">
+                <Form.Group className="mb-3 " controlId="sDate">
+                  <Form.Label>Start Date</Form.Label>
+                  <Form.Control
+                    type="date"
+                    onChange={handleFormChange}
+                    value={form.sDate}
+                    name="sDate"
+                    isInvalid={!!errors.sDate}
+                    required
+                    className="form-text-input"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.sDate}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="mb-3 mb-md-0" controlId="email">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Email"
+                    onChange={handleFormChange}
+                    value={form.email}
+                    name="email"
+                    className="form-text-input"
+                    isInvalid={!!errors.email}
+                    required
+                  />
+                  <Form.Control.Feedback className="feedback" type="invalid">
+                    {errors.email}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+            </Row>
+            <h4>Office Info</h4>
+            <hr className="sub-hr" />
+            <Form.Group
               required
+              className="mb-3 relative-row"
+              controlId="office"
             >
-              <option>Name</option>
-              <option value="office1">Office 1</option>
-              <option value="office2">Office 2</option>
-              <option value="office3">Office 3</option>
-            </Form.Select>
-            <Form.Control.Feedback type="invalid">
-              {errors.office}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Row>
-            <Col xs={12} md={6} className="relative-row">
-              <Form.Group className="mb-3" controlId="department">
-                <Form.Label>Department</Form.Label>
-                <Form.Select
-                  aria-label="Default select example"
-                  onChange={handleFormChange}
-                  value={form.department}
-                  name="department"
-                  className="form-text-input form-select-extrapadding"
-                  isInvalid={!!errors.department}
-                  required
-                >
-                  <option value="">Select</option>
-                  <option value="dep1">Department 1</option>
-                  <option value="dep2">Department 2</option>
-                  <option value="dep2">Department 3</option>
-                </Form.Select>
-                <Form.Control.Feedback type="invalid">
-                  {errors.department}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-            <Col xs={12} md={6} className="relative-row">
-              <Form.Group className="mb-3" controlId="attendance">
-                <Form.Label>Attendance Profile</Form.Label>
-                <Form.Select
-                  aria-label="Default select example"
-                  onChange={handleFormChange}
-                  value={form.attendance}
-                  name="attendance"
-                  className="form-text-input"
-                  isInvalid={!!errors.attendance}
-                  required
-                >
-                  <option value="">Select</option>
-                  <option value="present">Present</option>
-                  <option value="weekend">Weekend</option>
-                  <option value="absent">Absent</option>
-                  <option value="holdiay">Holiday</option>
-                  <option value=" ">On leave</option>
-                </Form.Select>
-                <Form.Control.Feedback type="invalid">
-                  {errors.attendance}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} md={6} className="relative-row">
-              <Form.Group className="mb-3" controlId="role">
-                <Form.Label>Role</Form.Label>
-                <Form.Select
-                  aria-label="Default select example"
-                  onChange={handleFormChange}
-                  value={form.role}
-                  name="role"
-                  className="form-text-input form-select-extrapadding"
-                  isInvalid={!!errors.role}
-                  required
-                >
-                  <option value="">Select</option>
-                  <option value="HR Manager">HR Manager</option>
-                  <option value="Frontend Developer">Frontend Developer</option>
-                  <option value="Backend Developer">Backend Developer</option>
-                  <option value="Dev Ops">Dev Ops</option>
-                </Form.Select>
-                <Form.Control.Feedback type="invalid">
-                  {errors.role}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-            <Col xs={12} md={6} className="relative-row">
-              <Form.Group className="mb-3" controlId="position">
-                <Form.Label>Position</Form.Label>
-                <Form.Select
-                  aria-label="Default select example"
-                  onChange={handleFormChange}
-                  value={form.position}
-                  name="position"
-                  className="form-text-input"
-                  isInvalid={!!errors.position}
-                  required
-                >
-                  <option>Select</option>
-                  <option value="position 1">Position 1</option>
-                  <option value="position 2">Position 2</option>
-                  <option value="position 3">Position 3</option>
-                  <option value="position 4">Position 4</option>
-                </Form.Select>
-                <Form.Control.Feedback type="invalid">
-                  {errors.position}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-            <Col xs={12} md={6} className="relative-row">
-              <Form.Group className="mb-3" controlId="dManager">
-                <Form.Label>Direct Manager</Form.Label>
-                <Form.Select
-                  aria-label="Default select example"
-                  onChange={handleFormChange}
-                  value={form.dManager}
-                  name="dManager"
-                  className="form-text-input form-select-extrapadding"
-                  // isInvalid={ !!errors.dManager }
-                >
-                  <option>Select Option</option>
-                  <option value="manager1">Manager 1</option>
-                  <option value="manager2">Manager 2</option>
-                  <option value="manager3">Manager 3</option>
-                  <option value="manager4">Manager 4</option>
-                </Form.Select>
-                <Form.Control.Feedback type="invalid">
-                  {errors.dManager}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Col>
-          </Row>
-          <h4>Work from home</h4>
-          <hr className="sub-hr" />
-          <Row className="mt-2">
-            <Form.Group id="workFromHome">
-              <Form.Check
-                type="checkbox"
-                label="Allow Employee To Work From Home"
-                onChange={() =>
-                  setForm((prev) => ({
-                    ...prev,
-                    workFromHome: !form.workFromHome,
-                  }))
-                }
-                checked={form.workFromHome}
-                name="attendance"
-              />
+              <Form.Label>Office</Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+                onChange={handleFormChange}
+                value={form.office}
+                name="office"
+                className="form-text-input form-select-extrapadding "
+                isInvalid={!!errors.office}
+                required
+              >
+                <option>Name</option>
+                {offices?.map((office) => (
+                  <option value={office.id}>{office.name}</option>
+                ))}
+              </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                {errors.office}
+              </Form.Control.Feedback>
             </Form.Group>
-          </Row>
-          <hr />
-          <div className="d-flex flex-column flex-md-row justify-content-end align-items-center gap-3">
-            <Button
-              bg="danger"
-              size="lg"
-              className="form-btn cancel form-btn d-flex justify-content-center align-items-center"
-              onClick={() => setModalOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="form-btn save d-flex justify-content-center align-items-center "
-              type="submit"
-            >
-              Save
-            </Button>
-          </div>
-        </Form>
-      </Container>
+            <Row>
+              <Col xs={12} md={6} className="relative-row">
+                <Form.Group className="mb-3" controlId="department">
+                  <Form.Label>Department</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    onChange={handleFormChange}
+                    value={form.department}
+                    name="department"
+                    className="form-text-input form-select-extrapadding"
+                    isInvalid={!!errors.department}
+                    required
+                  >
+                    <option value="">Select</option>
+                    {departments?.map((department) => (
+                      <option value={department.id}>{department.name}</option>
+                    ))}
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.department}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+              <Col xs={12} md={6} className="relative-row">
+                <Form.Group className="mb-3" controlId="attendance">
+                  <Form.Label>Attendance Profile</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    onChange={handleFormChange}
+                    value={form.attendance}
+                    name="attendance"
+                    className="form-text-input"
+                    isInvalid={!!errors.attendance}
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="present">Present</option>
+                    <option value="weekend">Weekend</option>
+                    <option value="absent">Absent</option>
+                    <option value="holdiay">Holiday</option>
+                    <option value=" ">On leave</option>
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.attendance}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} md={6} className="relative-row">
+                <Form.Group className="mb-3" controlId="role">
+                  <Form.Label>Role</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    onChange={handleFormChange}
+                    value={form.role}
+                    name="role"
+                    className="form-text-input form-select-extrapadding"
+                    isInvalid={!!errors.role}
+                    required
+                  >
+                    <option value="">Select</option>
+                    <option value="HR Manager">HR Manager</option>
+                    <option value="Frontend Developer">
+                      Frontend Developer
+                    </option>
+                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="Dev Ops">Dev Ops</option>
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.role}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+              <Col xs={12} md={6} className="relative-row">
+                <Form.Group className="mb-3" controlId="position">
+                  <Form.Label>Position</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    onChange={handleFormChange}
+                    value={form.position}
+                    name="position"
+                    className="form-text-input"
+                    isInvalid={!!errors.position}
+                    required
+                  >
+                    <option>Select</option>
+                    {positions?.map((element) => (
+                      <option value={element.id}>{element.name}</option>
+                    ))}
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.position}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+              <Col xs={12} md={6} className="relative-row">
+                <Form.Group className="mb-3" controlId="dManager">
+                  <Form.Label>Direct Manager</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    onChange={handleFormChange}
+                    value={form.dManager}
+                    name="dManager"
+                    className="form-text-input form-select-extrapadding"
+                    // isInvalid={ !!errors.dManager }
+                  >
+                    <option>Select Option</option>
+                    {managers?.map((element) => (
+                      <option value={element.id}>{element.name}</option>
+                    ))}
+                  </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.dManager}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+            </Row>
+            <h4>Work from home</h4>
+            <hr className="sub-hr" />
+            <Row className="mt-2">
+              <Form.Group id="workFromHome">
+                <Form.Check
+                  type="checkbox"
+                  label="Allow Employee To Work From Home"
+                  onChange={() =>
+                    setForm((prev) => ({
+                      ...prev,
+                      workFromHome: !form.workFromHome,
+                    }))
+                  }
+                  checked={form.workFromHome}
+                  name="attendance"
+                />
+              </Form.Group>
+            </Row>
+            <hr />
+            <div className="d-flex flex-column flex-md-row justify-content-end align-items-center gap-3">
+              <Button
+                bg="danger"
+                size="lg"
+                className="form-btn cancel form-btn d-flex justify-content-center align-items-center"
+                onClick={() => setModalOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                className="form-btn save d-flex justify-content-center align-items-center "
+                type="submit"
+              >
+                Save
+              </Button>
+            </div>
+          </Form>
+        </Container>
+      )}
     </div>
   );
 };

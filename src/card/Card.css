@@ -116,6 +116,10 @@
   color: var(--weekend);
   background-color: rgba(39, 100, 172, 0.16);
 }
+.not-signed {
+  color: var(--leave);
+  background-color: rgba(137, 151, 164, 0.16);
+}
 .card-icon-container {
   width: 20px;
   height: 20px;

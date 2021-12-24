@@ -6,6 +6,7 @@ import FormModal from "../form-modal/FormModal";
 import { clientsContext } from "../store/ContextProvider";
 import { useEffect } from "react/cjs/react.development";
 import { Form } from "react-bootstrap";
+import useGetUsers from "../api/apiHooks/useGetUsers";
 
 const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   const { clientsData, setClientsData } = useContext(clientsContext);
@@ -18,18 +19,22 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
     setFilteredList(clientsData);
   }, [clientsData]);
 
-  useEffect(() => {
-    const filtered = clientsData.filter((client) =>
-      client.name.toLowerCase().includes(search)
-    );
-    setFilteredList(filtered);
-  }, [search, clientsData]);
+  // useEffect(() => {
+  //   const filtered = clientsData.filter((client) =>
+  //     client.name.toLowerCase().includes(search)
+  //   );
+  //   setFilteredList(filtered);
+  // }, [search, clientsData]);
   //=======================================================
   const handleDelete = (i) => {
     const filtered = clientsData.filter((client) => client.id !== i);
     setClientsData(filtered);
   };
 
+  const { res } = useGetUsers();
+  setClientsData(res);
+
+  console.log(res);
   return (
     <>
       {modalOpen && <FormModal setModalOpen={setModalOpen} />}
@@ -68,19 +73,21 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
               <Card
                 key={client.id}
                 name={client.name}
-                img={client.image}
-                role={client.role}
-                attendance={client.attendance}
-                department={client.department}
-                office={client.office}
-                sDate={client.sDate}
-                dManager={client.dManager}
+                img={client.img_path || "/images/user.jpg"}
+                role={client.user_type}
+                position={client.position.name}
+                attendance={client.working_status}
+                department={client.department.name}
+                office={client.office.name}
+                sDate={client.starts_at}
+                dManager={client.manager.name}
+                copiedManager={client.copied_managers}
                 handleDelete={() => handleDelete(client.id)}
                 modalOpen={modalOpen}
               />
             ))
           ) : (
-            <span>no employees data</span>
+            <span>loading</span>
           )}
         </div>
       </div>
