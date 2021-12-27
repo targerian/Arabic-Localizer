@@ -2,7 +2,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
+  height: 100%;
   right: 0;
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
@@ -103,8 +103,16 @@
 .form-select-extrapadding {
   padding-left: 1.494rem !important;
 }
+.form-select {
+  color: #8f9da9 !important;
+}
 option {
   font-size: 0.813rem;
+  color: #212529 !important;
+  margin-bottom: 10px !important;
+}
+option:hover {
+  background-color: rgb(13 110 253 / 25%) !important;
 }
 .form-check-input {
   box-shadow: none !important;

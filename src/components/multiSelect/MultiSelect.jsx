@@ -20,10 +20,16 @@ export default function AnimatedMulti({ options, onChange, value, name }) {
       onChange={onChange}
       value={value}
       styles={{
-        control: (base) => ({
+        control: (base, state) => ({
           ...base,
           height: 30,
           minHeight: 30,
+          border: "2px solid #ced4d",
+          transition:
+            "border-color .15s ease-in-out,box-shadow .15s ease-in-out",
+          boxShadow: state.isFocused
+            ? "0 0 0 0.25rem rgb(13 110 253 / 25%)"
+            : 0,
         }),
         valueContainer: (base) => ({
           ...base,
@@ -70,7 +76,7 @@ export default function AnimatedMulti({ options, onChange, value, name }) {
           minHeight: 24,
           fontSize: 12,
         }),
-        option: (base) => ({
+        option: (base, state) => ({
           ...base,
           height: 30,
           minHeight: 30,

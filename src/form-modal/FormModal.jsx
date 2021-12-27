@@ -5,6 +5,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { GiTrumpet } from "react-icons/gi";
 import useFetchFormData from "../api/apiHooks/useFetchFormData";
 import MultiSelectSort from "../components/multiSelect/MultiSelect.jsx";
+import useAddUser from "../api/apiHooks/useAddUser";
 
 const FormModal = ({ setModalOpen }) => {
   const { error, res, loading } = useFetchFormData();
@@ -43,7 +44,6 @@ const FormModal = ({ setModalOpen }) => {
       form;
     const newErrors = {};
     // name errors
-    console.log("checking validity");
     if (!name || name === "") newErrors.name = "Please enter a valid name!";
     if (!email.includes("@") || !email.includes("."))
       newErrors.email = "Email must contain @ sign !";
@@ -67,6 +67,8 @@ const FormModal = ({ setModalOpen }) => {
   };
   //==========================================================================================================
 
+  const [addUser] = useAddUser();
+
   const onSubmit = (e) => {
     const newErrors = checkValidity();
     if (Object.keys(newErrors).length > 0) {
@@ -77,24 +79,43 @@ const FormModal = ({ setModalOpen }) => {
     }
     e.preventDefault();
     e.preventDefault();
-    const employee = {
-      id: new Date().getMilliseconds(),
-      name: form.name,
-      email: form.email,
-      image: selectedImage
-        ? URL.createObjectURL(selectedImage)
-        : "/images/user.jpg",
-      sDate: form.sDate,
-      phone: form.phone,
-      office: form.office,
-      department: form.department,
-      attendance: form.attendance,
-      role: form.role,
-      position: form.position,
-      dManager: form.dManager,
-      workFromHome: form.workFromHome,
-    };
-    setClientsData((clientsData) => [...clientsData, employee]);
+    // const employee = {
+    //   id: new Date().getMilliseconds(),
+    //   name: form.name,
+    //   email: form.email,
+    //   image: selectedImage
+    //     ? URL.createObjectURL(selectedImage)
+    //     : "/images/user.jpg",
+    //   sDate: form.sDate,
+    //   phone: form.phone,
+    //   office: form.office,
+    //   department: form.department,
+    //   attendance: form.attendance,
+    //   role: form.role,
+    //   position: form.position,
+    //   dManager: form.dManager,
+    //   workFromHome: form.workFromHome,
+    //   copiedManager: form.copiedManager.map((el) => el.value),
+    // };
+    console.log("aaaaaaaaaaaaaaaaaaaading a user");
+    addUser({
+      variables: {
+        id: null,
+        name: "lalala",
+        phone: "123456",
+        email: "mohamed.ali@gmail.com",
+        start_at: "2021-11-23",
+        department_id: 1,
+        manager_id: 95,
+        company_id: 1,
+        office_id: 2,
+        position_id: 1,
+        att_profile_id: 1,
+        copied_managers: [95],
+        user_image: null,
+      },
+    });
+    // setClientsData((clientsData) => [...clientsData, employee]);
     setModalOpen(false);
   };
 
@@ -122,7 +143,6 @@ const FormModal = ({ setModalOpen }) => {
       value: manager.id,
       label: manager.name,
     }));
-    console.log(managersForReselect);
     setFilteredCopiedManagersReselect(managersForReselect);
     setFilteredManagers(managers);
   }, [managers]);
@@ -153,8 +173,6 @@ const FormModal = ({ setModalOpen }) => {
       );
 
       setFilteredManagers(filtered);
-
-      console.log({ filteredManagers });
     } else {
       return filteredManagers;
     }
@@ -183,7 +201,6 @@ const FormModal = ({ setModalOpen }) => {
                     className="input-file"
                     name="myImage"
                     onChange={(event) => {
-                      console.log(event.target.files[0]);
                       setSelectedImage(event.target.files[0]);
                     }}
                   />

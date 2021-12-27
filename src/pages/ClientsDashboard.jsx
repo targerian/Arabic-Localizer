@@ -34,7 +34,6 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   const { res } = useGetUsers();
   setClientsData(res);
 
-  console.log(res);
   return (
     <>
       {modalOpen && <FormModal setModalOpen={setModalOpen} />}
