@@ -48,7 +48,7 @@ export const GET_FORM_DATA = gql`
         id
       }
     }
-    attendance_profiles(first: 20, page: 1) {
+    attendance_profiles(first: 50, page: 1) {
       data {
         id
         name
@@ -62,6 +62,7 @@ export const GET_FORM_DATA = gql`
     }
     managers {
       name
+      id
     }
   }
 `;

@@ -1,9 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./FormModal.css";
 import { clientsContext } from "../store/ContextProvider";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { GiTrumpet } from "react-icons/gi";
 import useFetchFormData from "../api/apiHooks/useFetchFormData";
+import MultiSelectSort from "../components/multiSelect/MultiSelect.jsx";
 
 const FormModal = ({ setModalOpen }) => {
   const { error, res, loading } = useFetchFormData();
@@ -12,7 +13,7 @@ const FormModal = ({ setModalOpen }) => {
   const attendance = res?.attendance_profiles?.data;
   const positions = res?.positions.data;
   const managers = res?.managers;
-  //=================================================
+  //==========================================================================================================
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -24,12 +25,15 @@ const FormModal = ({ setModalOpen }) => {
     role: "",
     position: "",
     dManager: "",
+    copiedManager: "",
     workFromHome: false,
   });
-  //====================================================
+  //==========================================================================================================
+
+  const [selectedImage, setSelectedImage] = useState(null);
   const { clientsData, setClientsData } = useContext(clientsContext);
 
-  //=========================================================
+  //==========================================================================================================
 
   // checking validity schema
   const [errors, setErrors] = useState({});
@@ -61,8 +65,7 @@ const FormModal = ({ setModalOpen }) => {
     else if (name.length > 40) newErrors.name = "Name is too long!";
     return newErrors;
   };
-
-  //==========================================================================
+  //==========================================================================================================
 
   const onSubmit = (e) => {
     const newErrors = checkValidity();
@@ -95,7 +98,7 @@ const FormModal = ({ setModalOpen }) => {
     setModalOpen(false);
   };
 
-  //===========================================
+  //==========================================================================================================
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setForm((prevState) => ({ ...prevState, [name]: value }));
@@ -105,9 +108,59 @@ const FormModal = ({ setModalOpen }) => {
         [name]: null,
       });
   };
-  //===========================================
+  //===========================================================================================================
 
-  const [selectedImage, setSelectedImage] = useState(null);
+  // remove manager from copied managers list and vice versa
+  const [filteredManagers, setFilteredManagers] = useState(managers);
+  const [filteredCopiedManagers, setFilteredCopiedManagers] =
+    useState(managers);
+  const [filteredCopiedManagersReselect, setFilteredCopiedManagersReselect] =
+    useState(managers);
+
+  useEffect(() => {
+    const managersForReselect = managers?.map((manager) => ({
+      value: manager.id,
+      label: manager.name,
+    }));
+    console.log(managersForReselect);
+    setFilteredCopiedManagersReselect(managersForReselect);
+    setFilteredManagers(managers);
+  }, [managers]);
+
+  useEffect(() => {
+    if (form.copiedManager && form.dManager) {
+      const selectIds = form.copiedManager.map((el) => el.value);
+      const filtered = managers.filter(
+        (manager) => !selectIds.includes(manager.id)
+      );
+      setFilteredManagers(filtered);
+    }
+    if (form.dManager) {
+      const filtered = managers.filter(
+        (manager) => manager.id !== form.dManager
+      );
+
+      setFilteredCopiedManagersReselect(
+        filtered.map((manager) => ({
+          value: manager.id,
+          label: manager.name,
+        }))
+      );
+    } else if (form.copiedManager) {
+      const selectIds = form.copiedManager.map((el) => el.value);
+      const filtered = managers.filter(
+        (manager) => !selectIds.includes(manager.id)
+      );
+
+      setFilteredManagers(filtered);
+
+      console.log({ filteredManagers });
+    } else {
+      return filteredManagers;
+    }
+  }, [form.dManager, form.copiedManager, managers]);
+
+  //==============================================================================================================
 
   return (
     <div className="modal-form-container d-flex justify-content-center align-items-start align-items-md-start">
@@ -280,11 +333,9 @@ const FormModal = ({ setModalOpen }) => {
                     required
                   >
                     <option value="">Select</option>
-                    <option value="present">Present</option>
-                    <option value="weekend">Weekend</option>
-                    <option value="absent">Absent</option>
-                    <option value="holdiay">Holiday</option>
-                    <option value=" ">On leave</option>
+                    {attendance?.map((element) => (
+                      <option value={element.id}>{element.name}</option>
+                    ))}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
                     {errors.attendance}
@@ -352,10 +403,29 @@ const FormModal = ({ setModalOpen }) => {
                     // isInvalid={ !!errors.dManager }
                   >
                     <option>Select Option</option>
-                    {managers?.map((element) => (
+                    {filteredManagers?.map((element) => (
                       <option value={element.id}>{element.name}</option>
                     ))}
                   </Form.Select>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.dManager}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+              <Col xs={12} md={6} className="relative-row">
+                <Form.Group className="mb-3" controlId="copiedManager">
+                  <Form.Label>Copied Manager</Form.Label>
+                  <MultiSelectSort
+                    options={filteredCopiedManagersReselect}
+                    value={form.copiedManager}
+                    name="copiedManager"
+                    onChange={(selectedOption) => {
+                      setForm((prevState) => ({
+                        ...prevState,
+                        copiedManager: selectedOption,
+                      }));
+                    }}
+                  />
                   <Form.Control.Feedback type="invalid">
                     {errors.dManager}
                   </Form.Control.Feedback>
@@ -380,6 +450,7 @@ const FormModal = ({ setModalOpen }) => {
                 />
               </Form.Group>
             </Row>
+
             <hr />
             <div className="d-flex flex-column flex-md-row justify-content-end align-items-center gap-3">
               <Button
