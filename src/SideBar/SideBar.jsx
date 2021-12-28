@@ -21,12 +21,17 @@ const SideBar = ({ modalOpen }) => {
     <div
       className={`side-bar-container d-flex flex-column justify-content-start align-items-center `}
     >
-      {sideData.map((element) => (
-        <div className="d-flex flex-column justify-content-center align-items-center my-3 px-2 py-2 element-container">
-          {element.icon}
-          <span className="side-text">{element.name}</span>
-        </div>
-      ))}
+      <div style={{ position: "fixed" }}>
+        {sideData.map((element, index) => (
+          <div
+            key={index}
+            className="d-flex flex-column justify-content-center align-items-center my-3 px-2 py-2 element-container"
+          >
+            {element.icon}
+            <span className="side-text">{element.name}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

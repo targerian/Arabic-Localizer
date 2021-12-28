@@ -7,37 +7,73 @@ import { clientsContext } from "../store/ContextProvider";
 import { useEffect } from "react/cjs/react.development";
 import { Form } from "react-bootstrap";
 import useGetUsers from "../api/apiHooks/useGetUsers";
+import useSearchUser from "../api/apiHooks/useSearchUser";
+import { GET_USERS } from "../api/quereis";
+import { useQuery } from "@apollo/client";
+import useDidMountEffect from "../hooks/useDidMountEffect";
 
 const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
+  //global state managment and states =========================================================================
   const { clientsData, setClientsData } = useContext(clientsContext);
   const [search, setSearch] = useState("");
-  //===============================================
-  // handle search
-  const [filteredList, setFilteredList] = useState([]);
+  const [load, setLoad] = useState(false);
+
+  //initial rendering==========================================================================================
+  const [getUsers, { error, data, loading }] = useGetUsers();
+
+  const fetchData = async () => {
+    await getUsers();
+    const getUsersData = data?.users_by_role.data;
+    setClientsData(getUsersData);
+  };
 
   useEffect(() => {
-    setFilteredList(clientsData);
-  }, [clientsData]);
+    setLoad(true);
+    fetchData();
+    setLoad(false);
+  }, [data]);
 
-  // useEffect(() => {
-  //   const filtered = clientsData.filter((client) =>
-  //     client.name.toLowerCase().includes(search)
-  //   );
-  //   setFilteredList(filtered);
-  // }, [search, clientsData]);
+  useEffect(() => {
+    if (search === "") {
+      setLoad(true);
+      fetchData();
+      setLoad(false);
+    } else return;
+  }, [search]);
+
+  // handle search =================================================================================================
+
+  const [serachUser, { searchError, searchData, searchLoading }] =
+    useSearchUser();
+
+  const fetchSearch = async () => {
+    if (search !== "") {
+      setLoad(true);
+      await serachUser({
+        variables: {
+          name: search.toLocaleLowerCase(),
+        },
+      });
+      const response = searchData?.users_by_role.data;
+      setClientsData(response);
+      setLoad(false);
+    } else return;
+  };
+
+  // removing search query from the initial rendering================================================================
+
+  useDidMountEffect(fetchSearch, [search, searchData]);
+
   //=======================================================
   const handleDelete = (i) => {
     const filtered = clientsData.filter((client) => client.id !== i);
     setClientsData(filtered);
   };
 
-  const { res } = useGetUsers();
-  setClientsData(res);
-
   return (
     <>
-      {modalOpen && <FormModal setModalOpen={setModalOpen} />}
       <div className={`dashbord-container`}>
+        {modalOpen && <FormModal setModalOpen={setModalOpen} />}
         <div className="w-100 d-flex flex-column flex-md-row justify-content-start align-items-start align-items-md-center">
           <div className="w-100 w-md-auto d-flex flex-row justify-content-center align-items-center flex-fill me-2 ">
             <label
@@ -67,8 +103,10 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
         </div>
         {/* ======================================================================== */}
         <div className="cards-container d-flex flex-row justify-content-center justify-content-md-start row-wrap align-items-start align-self-start ">
-          {filteredList ? (
-            filteredList.map((client) => (
+          {searchLoading || loading || load ? (
+            <span>loading</span>
+          ) : (
+            clientsData?.map((client) => (
               <Card
                 key={client.id}
                 name={client.name}
@@ -85,8 +123,6 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
                 modalOpen={modalOpen}
               />
             ))
-          ) : (
-            <span>loading</span>
           )}
         </div>
       </div>

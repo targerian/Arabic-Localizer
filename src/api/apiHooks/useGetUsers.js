@@ -1,11 +1,12 @@
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { GET_USERS } from "../quereis";
 
 const useGetUsers = () => {
-  const { error, data, loading, refetch } = useQuery(GET_USERS);
-  console.log(data);
+  console.log("get users fireeeeeed");
+  const [getUsers, { error, data, loading }] = useLazyQuery(GET_USERS);
   const res = data?.users_by_role.data;
-  return { error, res, loading, refetch };
+
+  return [getUsers, { error, data, loading }];
 };
 
 export default useGetUsers;

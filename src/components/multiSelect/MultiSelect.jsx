@@ -30,12 +30,15 @@ export default function AnimatedMulti({ options, onChange, value, name }) {
           boxShadow: state.isFocused
             ? "0 0 0 0.25rem rgb(13 110 253 / 25%)"
             : 0,
+          scrollbarWidth: "thin",
         }),
         valueContainer: (base) => ({
           ...base,
           height: 30,
           minHeight: 30,
+          overflowY: "scroll",
           padding: "0 6px",
+          scrollbarWidth: "thin",
         }),
         indicatorsContainer: (base) => ({
           ...base,

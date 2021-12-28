@@ -67,9 +67,11 @@ const FormModal = ({ setModalOpen }) => {
   };
   //==========================================================================================================
 
-  const [addUser] = useAddUser();
-
-  const onSubmit = (e) => {
+  const [addUser, { addUserData, addUserLoading, addUserError }] = useAddUser();
+  useEffect(() => {
+    console.log(addUserData?.store_user_with_user_salary_config);
+  });
+  const onSubmit = async (e) => {
     const newErrors = checkValidity();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -98,23 +100,24 @@ const FormModal = ({ setModalOpen }) => {
     //   copiedManager: form.copiedManager.map((el) => el.value),
     // };
     console.log("aaaaaaaaaaaaaaaaaaaading a user");
-    addUser({
+    await addUser({
       variables: {
         id: null,
-        name: "lalala",
-        phone: "123456",
-        email: "mohamed.ali@gmail.com",
-        start_at: "2021-11-23",
-        department_id: 1,
-        manager_id: 95,
+        name: form.name,
+        phone: form.phone,
+        email: form.email,
+        start_at: form.sDate,
+        department_id: form.department,
+        manager_id: form.dManager,
         company_id: 1,
-        office_id: 2,
-        position_id: 1,
-        att_profile_id: 1,
-        copied_managers: [95],
+        office_id: form.office,
+        position_id: form.position,
+        att_profile_id: form.attendance,
+        copied_managers: form.copiedManager.map((el) => el.value),
         user_image: null,
       },
     });
+    console.log("loaaaaaaaaaaading  " + addUserLoading);
     // setClientsData((clientsData) => [...clientsData, employee]);
     setModalOpen(false);
   };
@@ -182,7 +185,7 @@ const FormModal = ({ setModalOpen }) => {
 
   return (
     <div className="modal-form-container d-flex justify-content-center align-items-start align-items-md-start">
-      {loading ? (
+      {loading || addUserLoading ? (
         <h1>loading</h1>
       ) : (
         <Container className="form-con pt-3 pb-4 pb-md-3 ps-4 pe-4 pe-lg-5">
@@ -192,12 +195,11 @@ const FormModal = ({ setModalOpen }) => {
             <h4>Personal info</h4>
             <hr className="sub-hr" />
             <Row className="mb-3">
-              <Col xs={12} md={3}>
+              <Col xs={12} md={3} className="mb-2 mb-md-0">
                 <div className="bs-img-upload ">
                   <input
                     type="file"
                     id="file"
-                    Value=""
                     className="input-file"
                     name="myImage"
                     onChange={(event) => {
@@ -307,7 +309,9 @@ const FormModal = ({ setModalOpen }) => {
               >
                 <option>Name</option>
                 {offices?.map((office) => (
-                  <option value={office.id}>{office.name}</option>
+                  <option key={office.id} value={office.id}>
+                    {office.name}
+                  </option>
                 ))}
               </Form.Select>
               <Form.Control.Feedback type="invalid">
@@ -329,7 +333,9 @@ const FormModal = ({ setModalOpen }) => {
                   >
                     <option value="">Select</option>
                     {departments?.map((department) => (
-                      <option value={department.id}>{department.name}</option>
+                      <option key={department.id} value={department.id}>
+                        {department.name}
+                      </option>
                     ))}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
@@ -351,7 +357,9 @@ const FormModal = ({ setModalOpen }) => {
                   >
                     <option value="">Select</option>
                     {attendance?.map((element) => (
-                      <option value={element.id}>{element.name}</option>
+                      <option key={element.id} value={element.id}>
+                        {element.name}
+                      </option>
                     ))}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
@@ -400,7 +408,9 @@ const FormModal = ({ setModalOpen }) => {
                   >
                     <option>Select</option>
                     {positions?.map((element) => (
-                      <option value={element.id}>{element.name}</option>
+                      <option key={element.id} value={element.id}>
+                        {element.name}
+                      </option>
                     ))}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">
@@ -421,7 +431,9 @@ const FormModal = ({ setModalOpen }) => {
                   >
                     <option>Select Option</option>
                     {filteredManagers?.map((element) => (
-                      <option value={element.id}>{element.name}</option>
+                      <option key={element.id} value={element.id}>
+                        {element.name}
+                      </option>
                     ))}
                   </Form.Select>
                   <Form.Control.Feedback type="invalid">

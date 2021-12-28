@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_USERS = gql`
   query {
-    users_by_role(first: 20, page: 1) {
+    users_by_role(first: 50, page: 1) {
       data {
         id
         name
@@ -114,6 +114,44 @@ export const STORE_USER = gql`
         name
       }
       id
+    }
+  }
+`;
+export const SEARCH_USER = gql`
+  query searchUser($name: String!) {
+    users_by_role(
+      input: { name: $name, status: "active" }
+      first: 10
+      page: 1
+    ) {
+      data {
+        id
+        name
+        img_path
+        department {
+          id
+          name
+        }
+        office {
+          id
+          name
+        }
+        manager {
+          id
+          name
+        }
+        copied_managers {
+          id
+          name
+        }
+        position {
+          id
+          name
+        }
+        working_status
+        user_type
+        starts_at
+      }
     }
   }
 `;

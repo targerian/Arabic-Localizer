@@ -2,7 +2,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
+  min-height: 100%;
   right: 0;
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
@@ -165,6 +165,8 @@ option:hover {
   }
   .form-select-extrapadding {
     padding-left: 0.75rem !important;
+  }
+  .bs-img-upload {
   }
 }
 

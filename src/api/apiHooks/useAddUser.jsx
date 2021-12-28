@@ -3,10 +3,10 @@ import { STORE_USER } from "../quereis";
 
 const useAddUser = () => {
   const [addUser, { data, loading, error }] = useMutation(STORE_USER);
-  const res = data;
-  console.log(data);
-  console.log(data);
-  return [addUser, { data, loading, error }];
+  const addUserData = data;
+  const addUserLoading = loading;
+  const addUserError = error;
+  return [addUser, { addUserData, addUserLoading, addUserError }];
 };
 
 export default useAddUser;
