@@ -22,7 +22,7 @@ export default function AnimatedMulti({ options, onChange, value, name }) {
       styles={{
         control: (base, state) => ({
           ...base,
-          height: 30,
+          // height: 30,
           minHeight: 30,
           border: "2px solid #ced4d",
           transition:
@@ -34,11 +34,11 @@ export default function AnimatedMulti({ options, onChange, value, name }) {
         }),
         valueContainer: (base) => ({
           ...base,
-          height: 30,
-          minHeight: 30,
-          overflowY: "scroll",
+          // height: 30,
+          // minHeight: 30,
+          // overflowY: "scroll",
           padding: "0 6px",
-          scrollbarWidth: "thin",
+          // scrollbarWidth: "thin",
         }),
         indicatorsContainer: (base) => ({
           ...base,

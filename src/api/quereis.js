@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_USERS = gql`
   query {
-    users_by_role(first: 50, page: 1) {
+    users_by_role(first: 500, page: 1) {
       data {
         id
         name
