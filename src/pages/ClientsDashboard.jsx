@@ -9,8 +9,9 @@ import { Form } from "react-bootstrap";
 import useGetUsers from "../api/apiHooks/useGetUsers";
 import useSearchUser from "../api/apiHooks/useSearchUser";
 import { GET_USERS } from "../api/quereis";
-import { NetworkStatus, useQuery } from "@apollo/client";
+import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import useDidMountEffect from "../hooks/useDidMountEffect";
+import { DELETE_USER } from "../api/mutations";
 
 const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   //global state managment and states =========================================================================
@@ -19,23 +20,6 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   const [load, setLoad] = useState(false);
 
   //initial rendering==========================================================================================
-  // const [
-  //   getUsers,
-  //   { error = usersError, data = usersData, loading = usersLoading },
-  // ] = useGetUsers();
-
-  // const fetchData = async () => {
-  //   await getUsers();
-  //   const getUsersData = usersData?.users_by_role.data;
-  //   setClientsData(getUsersData);
-  // };
-
-  // useEffect(() => {
-  //   setLoad(true);
-  //   fetchData();
-  //   setLoad(false);
-  // }, [data]);
-
   const { error, data, loading, refetch, networkStatus, previousData } =
     useQuery(GET_USERS, {
       onCompleted: (data) => {
@@ -81,9 +65,22 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   useDidMountEffect(fetchSearch, [search, searchData]);
 
   //=======================================================
+  const [
+    deleteUser,
+    { data: deleteData, loading: deleteLoading, error: deleteError },
+  ] = useMutation(DELETE_USER);
   const handleDelete = (i) => {
-    const filtered = clientsData.filter((client) => client.id !== i);
-    setClientsData(filtered);
+    deleteUser({
+      variables: {
+        id: i,
+      },
+      onComplete: (data) => {
+        alert("sucess");
+        refetch();
+        const response = searchData?.users_by_role.data;
+        setClientsData(response);
+      },
+    });
   };
 
   return (
@@ -124,7 +121,7 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
           ) : (
             clientsData?.map((client) => (
               <Card
-                key={client.id}
+                key={String(client.id)}
                 name={client.name}
                 img={client.img_path || "/images/user.jpg"}
                 role={client.user_type}
