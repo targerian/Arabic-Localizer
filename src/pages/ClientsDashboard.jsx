@@ -9,7 +9,7 @@ import { Form } from "react-bootstrap";
 import useGetUsers from "../api/apiHooks/useGetUsers";
 import useSearchUser from "../api/apiHooks/useSearchUser";
 import { GET_USERS } from "../api/quereis";
-import { useQuery } from "@apollo/client";
+import { NetworkStatus, useQuery } from "@apollo/client";
 import useDidMountEffect from "../hooks/useDidMountEffect";
 
 const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
@@ -19,24 +19,40 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   const [load, setLoad] = useState(false);
 
   //initial rendering==========================================================================================
-  const [getUsers, { error, data, loading }] = useGetUsers();
+  // const [
+  //   getUsers,
+  //   { error = usersError, data = usersData, loading = usersLoading },
+  // ] = useGetUsers();
 
-  const fetchData = async () => {
-    await getUsers();
-    const getUsersData = data?.users_by_role.data;
-    setClientsData(getUsersData);
-  };
+  // const fetchData = async () => {
+  //   await getUsers();
+  //   const getUsersData = usersData?.users_by_role.data;
+  //   setClientsData(getUsersData);
+  // };
 
-  useEffect(() => {
-    setLoad(true);
-    fetchData();
-    setLoad(false);
-  }, [data]);
+  // useEffect(() => {
+  //   setLoad(true);
+  //   fetchData();
+  //   setLoad(false);
+  // }, [data]);
 
+  const { error, data, loading, refetch, networkStatus, previousData } =
+    useQuery(GET_USERS, {
+      onCompleted: (data) => {
+        const response = data.users_by_role.data;
+        console.log(response);
+        setClientsData(response);
+      },
+    });
   useEffect(() => {
     if (search === "") {
-      setLoad(true);
-      fetchData();
+      if (networkStatus === NetworkStatus.refetch) {
+        setLoad(true);
+      }
+      setClientsData([]);
+      refetch();
+      const response = data?.users_by_role.data;
+      setClientsData(response);
       setLoad(false);
     } else return;
   }, [search]);
@@ -46,10 +62,10 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   const [serachUser, { searchError, searchData, searchLoading }] =
     useSearchUser();
 
-  const fetchSearch = async () => {
+  const fetchSearch = () => {
     if (search !== "") {
       setLoad(true);
-      await serachUser({
+      serachUser({
         variables: {
           name: search.toLocaleLowerCase(),
         },
@@ -101,7 +117,7 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
             <span>Add new</span>
           </button>
         </div>
-        {/* ======================================================================== */}
+        {/* ============================================================================================================ */}
         <div className="cards-container d-flex flex-row justify-content-center justify-content-md-start row-wrap align-items-start align-self-start ">
           {searchLoading || loading || load ? (
             <span>loading</span>
