@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import "./ClientsDashboard.css";
 import { BiSearch } from "react-icons/bi";
-import Card from "../card/Card";
-import FormModal from "../form-modal/FormModal";
+import Card from "../components/card/Card";
+import FormModal from "../components/form-modal/FormModal";
 import { clientsContext } from "../store/ContextProvider";
 import { useEffect } from "react/cjs/react.development";
 import { Form } from "react-bootstrap";

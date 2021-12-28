@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./FormModal.css";
-import { clientsContext } from "../store/ContextProvider";
+import { clientsContext } from "../../store/ContextProvider";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { GiTrumpet } from "react-icons/gi";
-import useFetchFormData from "../api/apiHooks/useFetchFormData";
-import MultiSelectSort from "../components/multiSelect/MultiSelect.jsx";
-import useAddUser from "../api/apiHooks/useAddUser";
+import useFetchFormData from "../../api/apiHooks/useFetchFormData";
+import MultiSelectSort from "../multiSelect/MultiSelect.jsx";
+import useAddUser from "../../api/apiHooks/useAddUser";
 
 const FormModal = ({ setModalOpen }) => {
   const { error, res, loading } = useFetchFormData();

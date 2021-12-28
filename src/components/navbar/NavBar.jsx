@@ -4,7 +4,7 @@ import "./Navbar.css";
 import { IoMdNotifications } from "react-icons/io";
 import { FaAngleDown } from "react-icons/fa";
 
-const NavBar = ({ modalOpen }) => {
+export const NavBar = ({ modalOpen }) => {
   const weekDay = [
     "Sunday",
     "Monday",
