@@ -20,23 +20,36 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   const [load, setLoad] = useState(false);
 
   //initial rendering==========================================================================================
+
   const { error, data, loading, refetch, networkStatus, previousData } =
     useQuery(GET_USERS, {
       onCompleted: (data) => {
-        const response = data.users_by_role.data;
+        var response = data.users_by_role.data;
         console.log(response);
         setClientsData(response);
       },
+      notifyOnNetworkStatusChange: true,
+
+      fetchPolicy: "network-only",
+      // skip: search !== "",
     });
+  useEffect(() => {
+    setLoad(true);
+    var response = data?.users_by_role?.data;
+    setClientsData(response);
+    console.log("adding new fetch to  global state");
+    setLoad(false);
+  }, [data]);
+
   useEffect(() => {
     if (search === "") {
       if (networkStatus === NetworkStatus.refetch) {
         setLoad(true);
       }
-      setClientsData([]);
+      console.log("refetching");
       refetch();
-      const response = data?.users_by_role.data;
-      setClientsData(response);
+      // const response = data?.users_by_role.data;
+      // setClientsData(response);
       setLoad(false);
     } else return;
   }, [search]);
