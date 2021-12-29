@@ -19,87 +19,60 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   const [search, setSearch] = useState("");
   const [load, setLoad] = useState(false);
 
-  //initial rendering==========================================================================================
+  //initial rendering and handelling search==========================================================================================
 
-  const { error, data, loading, refetch, networkStatus, previousData } =
-    useQuery(GET_USERS, {
-      onCompleted: (data) => {
-        var response = data.users_by_role.data;
-        console.log(response);
-        setClientsData(response);
-      },
-      notifyOnNetworkStatusChange: true,
-
-      fetchPolicy: "network-only",
-      // skip: search !== "",
-    });
-  useEffect(() => {
-    setLoad(true);
-    var response = data?.users_by_role?.data;
-    setClientsData(response);
-    console.log("adding new fetch to  global state");
-    setLoad(false);
-  }, [data]);
+  const [
+    serachUser,
+    { searchError, searchData, searchLoading, networkStatus },
+  ] = useSearchUser();
 
   useEffect(() => {
-    if (search === "") {
-      if (networkStatus === NetworkStatus.refetch) {
-        setLoad(true);
-      }
-      console.log("refetching");
-      refetch();
-      // const response = data?.users_by_role.data;
-      // setClientsData(response);
-      setLoad(false);
-    } else return;
+    fetchSearch();
   }, [search]);
 
-  // handle search =================================================================================================
-
-  const [serachUser, { searchError, searchData, searchLoading }] =
-    useSearchUser();
-
   const fetchSearch = () => {
-    if (search !== "") {
-      setLoad(true);
-      serachUser({
-        variables: {
-          name: search.toLocaleLowerCase(),
-        },
-      });
-      const response = searchData?.users_by_role.data;
-      setClientsData(response);
-      setLoad(false);
-    } else return;
+    setLoad(true);
+    serachUser({
+      variables: {
+        name: search.toLocaleLowerCase(),
+      },
+      fetchPolicy: "no-cache",
+    });
+    console.log("fetchiiiiiiiiiiing");
+    setLoad(false);
   };
 
-  // removing search query from the initial rendering================================================================
-
-  useDidMountEffect(fetchSearch, [search, searchData]);
+  // handle search =================================================================================================
 
   //=======================================================
   const [
     deleteUser,
     { data: deleteData, loading: deleteLoading, error: deleteError },
   ] = useMutation(DELETE_USER);
-  const handleDelete = (i) => {
-    deleteUser({
+  const handleDelete = async (i) => {
+    setLoad(true);
+
+    await deleteUser({
       variables: {
         id: i,
       },
-      onComplete: (data) => {
-        alert("sucess");
-        refetch();
-        const response = searchData?.users_by_role.data;
-        setClientsData(response);
-      },
     });
+    fetchSearch();
+    alert("sucess");
   };
+  console.log(
+    "search loading",
+    searchLoading,
+    "delete loading ",
+    deleteLoading
+  );
 
   return (
     <>
       <div className={`dashbord-container`}>
-        {modalOpen && <FormModal setModalOpen={setModalOpen} />}
+        {modalOpen && (
+          <FormModal setModalOpen={setModalOpen} fetchSearch={fetchSearch} />
+        )}
         <div className="w-100 d-flex flex-column flex-md-row justify-content-start align-items-start align-items-md-center">
           <div className="w-100 w-md-auto d-flex flex-row justify-content-center align-items-center flex-fill me-2 ">
             <label
@@ -129,10 +102,10 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
         </div>
         {/* ============================================================================================================ */}
         <div className="cards-container d-flex flex-row justify-content-center justify-content-md-start row-wrap align-items-start align-self-start ">
-          {searchLoading || loading || load ? (
+          {searchLoading || deleteLoading || load ? (
             <span>loading</span>
           ) : (
-            clientsData?.map((client) => (
+            searchData?.users_by_role?.data?.map((client) => (
               <Card
                 key={String(client.id)}
                 name={client.name}

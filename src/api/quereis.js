@@ -121,7 +121,7 @@ export const SEARCH_USER = gql`
   query searchUser($name: String!) {
     users_by_role(
       input: { name: $name, status: "active" }
-      first: 10
+      first: 100
       page: 1
     ) {
       data {

@@ -7,7 +7,7 @@ import useFetchFormData from "../../api/apiHooks/useFetchFormData";
 import MultiSelectSort from "../multiSelect/MultiSelect.jsx";
 import useAddUser from "../../api/apiHooks/useAddUser";
 
-const FormModal = ({ setModalOpen }) => {
+const FormModal = ({ setModalOpen, fetchSearch }) => {
   const { error, res, loading } = useFetchFormData();
   const offices = res?.company_offices?.data;
   const departments = res?.departments?.data;
@@ -118,6 +118,8 @@ const FormModal = ({ setModalOpen }) => {
       },
     });
     console.log("loaaaaaaaaaaading  " + addUserLoading);
+    fetchSearch();
+
     // setClientsData((clientsData) => [...clientsData, employee]);
     setModalOpen(false);
   };
