@@ -38,27 +38,33 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
       },
       fetchPolicy: "no-cache",
     });
-    console.log("fetchiiiiiiiiiiing");
     setLoad(false);
   };
 
-  // handle search =================================================================================================
+  // handle delete ===========================================================================================================
 
-  //=======================================================
   const [
     deleteUser,
     { data: deleteData, loading: deleteLoading, error: deleteError },
   ] = useMutation(DELETE_USER);
-  const handleDelete = async (i) => {
-    setLoad(true);
 
-    await deleteUser({
-      variables: {
-        id: i,
-      },
-    });
-    fetchSearch();
-    alert("sucess");
+  const handleDelete = async (i) => {
+    let isExecuted = window.confirm(
+      "Are you sure that you want to delete this user?"
+    );
+    if (isExecuted) {
+      await deleteUser({
+        variables: {
+          id: i,
+        },
+        onError: (error) => {
+          console.log(error);
+          alert("error in deleting user");
+        },
+        onCompleted: () => alert("Deleting member success!"),
+      });
+      fetchSearch();
+    } else return;
   };
   console.log(
     "search loading",
@@ -66,12 +72,27 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
     "delete loading ",
     deleteLoading
   );
+  //handle edit ==============================================================================================================
+  const [index, setIndex] = useState(0);
+
+  const handleEdit = (i) => {
+    setIndex(i);
+    setModalOpen(true);
+  };
+
+  const [newForm, setnewForm] = useState(false);
 
   return (
     <>
       <div className={`dashbord-container`}>
         {modalOpen && (
-          <FormModal setModalOpen={setModalOpen} fetchSearch={fetchSearch} />
+          <FormModal
+            setModalOpen={setModalOpen}
+            fetchSearch={fetchSearch}
+            index={index}
+            newForm={newForm}
+            setnewForm={setnewForm}
+          />
         )}
         <div className="w-100 d-flex flex-column flex-md-row justify-content-start align-items-start align-items-md-center">
           <div className="w-100 w-md-auto d-flex flex-row justify-content-center align-items-center flex-fill me-2 ">
@@ -94,7 +115,10 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
           </div>
           <button
             className="mt-4 mt-md-0 ms-md-2 weekends"
-            onClick={() => setModalOpen(true)}
+            onClick={() => {
+              setModalOpen(true);
+              setnewForm(true);
+            }}
           >
             <span className="plus">+</span>
             <span>Add new</span>
@@ -120,6 +144,7 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
                 copiedManager={client.copied_managers}
                 handleDelete={() => handleDelete(client.id)}
                 modalOpen={modalOpen}
+                handleEdit={() => handleEdit(client.id)}
               />
             ))
           )}

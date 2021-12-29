@@ -20,6 +20,7 @@ const Card = ({
   dManager,
   position,
   copiedManager,
+  handleEdit,
 }) => {
   //=================================================================================================
   const popover = (
@@ -63,7 +64,7 @@ const Card = ({
       <div className="card-img-options d-flex flex-column justify-content-center align-items-center gap-3 gap-md-2">
         <img className="hr-card-img" src={img} alt="client" />
         <div className="image-options-container">
-          <MdModeEditOutline className="img-options" />
+          <MdModeEditOutline onClick={handleEdit} className="img-options" />
           <MdPauseCircleOutline className="img-options" />
           <MdDeleteForever onClick={handleDelete} className="img-options" />
         </div>

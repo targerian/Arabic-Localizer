@@ -155,3 +155,37 @@ export const SEARCH_USER = gql`
     }
   }
 `;
+export const GET_USER_INFO = gql`
+  query getUserInfo($id: ID) {
+    user(id: $id) {
+      name
+      phone
+      starts_at
+      email
+      office {
+        id
+        name
+      }
+      department {
+        id
+        name
+      }
+      position {
+        id
+        name
+      }
+      manager {
+        id
+        name
+      }
+      attendance_profile {
+        name
+        id
+      }
+      copied_managers {
+        name
+        id
+      }
+    }
+  }
+`;

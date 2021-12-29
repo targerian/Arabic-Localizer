@@ -6,15 +6,26 @@ import { GiTrumpet } from "react-icons/gi";
 import useFetchFormData from "../../api/apiHooks/useFetchFormData";
 import MultiSelectSort from "../multiSelect/MultiSelect.jsx";
 import useAddUser from "../../api/apiHooks/useAddUser";
+import { GET_USER_INFO } from "../../api/quereis";
+import { useQuery } from "@apollo/client";
+import { extendSchemaImpl } from "graphql/utilities/extendSchema";
 
-const FormModal = ({ setModalOpen, fetchSearch }) => {
+const FormModal = ({
+  setModalOpen,
+  fetchSearch,
+  index,
+  newForm,
+  setnewForm,
+}) => {
   const { error, res, loading } = useFetchFormData();
   const offices = res?.company_offices?.data;
   const departments = res?.departments?.data;
   const attendance = res?.attendance_profiles?.data;
   const positions = res?.positions.data;
   const managers = res?.managers;
+
   //==========================================================================================================
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -29,6 +40,46 @@ const FormModal = ({ setModalOpen, fetchSearch }) => {
     copiedManager: "",
     workFromHome: false,
   });
+  //initial rendering for edit================================================================================
+
+  const editedData = useQuery(GET_USER_INFO, {
+    variables: {
+      id: index,
+    },
+    onCompleted: (data) => {
+      console.log(data);
+      const {
+        name,
+        starts_at,
+        phone,
+        email,
+        office,
+        position,
+        attendance_profile,
+        department,
+        manager,
+        copied_managers,
+      } = data.user;
+      const emplowee = {
+        id: index,
+        name: name,
+        sDate: starts_at,
+        email: email,
+        phone: phone,
+        office: office.id,
+        department: department.id,
+        attendance: "",
+        role: "",
+        position: "",
+        dManager: "",
+        copiedManager: "",
+        workFromHome: false,
+      };
+      setForm(emplowee);
+    },
+    skip: index == 0 || newForm,
+  });
+
   //==========================================================================================================
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -119,7 +170,6 @@ const FormModal = ({ setModalOpen, fetchSearch }) => {
     });
     console.log("loaaaaaaaaaaading  " + addUserLoading);
     fetchSearch();
-
     // setClientsData((clientsData) => [...clientsData, employee]);
     setModalOpen(false);
   };
@@ -187,7 +237,7 @@ const FormModal = ({ setModalOpen, fetchSearch }) => {
 
   return (
     <div className="modal-form-container d-flex justify-content-center align-items-start align-items-md-start">
-      {loading || addUserLoading ? (
+      {loading || addUserLoading || editedData.loading ? (
         <h1>loading</h1>
       ) : (
         <Container className="form-con pt-3 pb-4 pb-md-3 ps-4 pe-4 pe-lg-5">
@@ -309,7 +359,9 @@ const FormModal = ({ setModalOpen, fetchSearch }) => {
                 isInvalid={!!errors.office}
                 required
               >
-                <option>Name</option>
+                <option>
+                  {editedData ? editedData?.user?.office?.name : "Name"}
+                </option>
                 {offices?.map((office) => (
                   <option key={office.id} value={office.id}>
                     {office.name}
@@ -488,7 +540,10 @@ const FormModal = ({ setModalOpen, fetchSearch }) => {
                 bg="danger"
                 size="lg"
                 className="form-btn cancel form-btn d-flex justify-content-center align-items-center"
-                onClick={() => setModalOpen(false)}
+                onClick={() => {
+                  setModalOpen(false);
+                  setnewForm(false);
+                }}
               >
                 Cancel
               </Button>
