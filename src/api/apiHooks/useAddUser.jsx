@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { STORE_USER } from "../quereis";
+import { STORE_USER } from "../mutations";
 
 const useAddUser = () => {
   const [addUser, { data, loading, error }] = useMutation(STORE_USER);

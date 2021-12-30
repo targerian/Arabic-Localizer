@@ -12,6 +12,7 @@ import { GET_USERS } from "../api/quereis";
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import useDidMountEffect from "../hooks/useDidMountEffect";
 import { DELETE_USER } from "../api/mutations";
+import Spinner from "../components/spinner/Spinner";
 
 const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   //global state managment and states =========================================================================
@@ -27,10 +28,10 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   ] = useSearchUser();
 
   useEffect(() => {
-    fetchSearch();
+    fetchUsersData();
   }, [search]);
 
-  const fetchSearch = () => {
+  const fetchUsersData = () => {
     setLoad(true);
     serachUser({
       variables: {
@@ -61,9 +62,11 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
           console.log(error);
           alert("error in deleting user");
         },
-        onCompleted: () => alert("Deleting member success!"),
+        onCompleted: () => {
+          alert("Deleting member success!");
+          fetchUsersData();
+        },
       });
-      fetchSearch();
     } else return;
   };
   console.log(
@@ -73,11 +76,11 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
     deleteLoading
   );
   //handle edit ==============================================================================================================
-  const [index, setIndex] = useState(0);
+  const [modalID, setModalID] = useState(undefined);
 
   const [newForm, setnewForm] = useState(false);
   const handleEdit = (i) => {
-    setIndex(i);
+    setModalID(i);
     setModalOpen(true);
   };
 
@@ -87,8 +90,9 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
         {modalOpen && (
           <FormModal
             setModalOpen={setModalOpen}
-            fetchSearch={fetchSearch}
-            index={index}
+            fetchUsersData={fetchUsersData}
+            modalID={modalID}
+            setModalID={setModalID}
             newForm={newForm}
             setnewForm={setnewForm}
           />
@@ -126,7 +130,7 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
         {/* ============================================================================================================ */}
         <div className="cards-container d-flex flex-row justify-content-center justify-content-md-start row-wrap align-items-start align-self-start ">
           {searchLoading || deleteLoading || load ? (
-            <span>loading</span>
+            <Spinner />
           ) : (
             searchData?.users_by_role?.data?.map((client) => (
               <Card
@@ -139,7 +143,7 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
                 department={client.department.name}
                 office={client.office.name}
                 sDate={client.starts_at}
-                dManager={client.manager.name}
+                dManager={client.manager?.name}
                 copiedManager={client.copied_managers}
                 handleDelete={() => handleDelete(client.id)}
                 modalOpen={modalOpen}

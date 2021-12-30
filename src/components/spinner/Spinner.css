@@ -1,0 +1,11 @@
+.spinner-container {
+  position: absolute;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  right: 0;
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  /* background-color: transparent; */
+}

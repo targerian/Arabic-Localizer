@@ -81,6 +81,7 @@ export const STORE_USER = gql`
     $att_profile_id: ID!
     $copied_managers: [ID!]
     $user_image: Upload
+    $can_work_home: Int
   ) {
     store_user_with_user_salary_config(
       input: {
@@ -101,7 +102,7 @@ export const STORE_USER = gql`
           max_homeDays_per_week: 5
           flexible_home: 2
           can_ex_days: 1
-          can_work_home: 0
+          can_work_home: $can_work_home
           has_credentials: 0
           copied_managers: $copied_managers
         }

@@ -10,13 +10,15 @@ import { GET_USER_INFO } from "../../api/quereis";
 import { useQuery } from "@apollo/client";
 import { extendSchemaImpl } from "graphql/utilities/extendSchema";
 import useUpdateUser from "../../api/apiHooks/useUpdateUser";
+import Spinner from "../spinner/Spinner";
 
 const FormModal = ({
   setModalOpen,
-  fetchSearch,
-  index,
+  fetchUsersData,
+  modalID,
   newForm,
   setnewForm,
+  setModalID,
 }) => {
   const { error, res, loading } = useFetchFormData();
   const offices = res?.company_offices?.data;
@@ -25,7 +27,7 @@ const FormModal = ({
   const positions = res?.positions.data;
   const managers = res?.managers;
 
-  //==========================================================================================================
+  //initial adding stats=========================================================================================
 
   const [form, setForm] = useState({
     name: "",
@@ -38,14 +40,14 @@ const FormModal = ({
     role: "",
     position: "",
     dManager: "",
-    copiedManager: "",
-    workFromHome: false,
+    copiedManager: [],
+    workFromHome: 0,
   });
   //initial rendering for edit================================================================================
 
   const editedData = useQuery(GET_USER_INFO, {
     variables: {
-      id: index,
+      id: modalID,
     },
     onCompleted: (data) => {
       console.log(data);
@@ -63,7 +65,7 @@ const FormModal = ({
         can_work_home,
       } = data.user;
       const emplowee = {
-        id: index,
+        id: modalID,
         name: name,
         sDate: starts_at,
         email: email,
@@ -73,16 +75,13 @@ const FormModal = ({
         attendance: attendance_profile.id,
         role: "Frontend Developer",
         position: position.id,
-        dManager: manager.id,
-        copiedManager: copied_managers.map((el) => ({
-          label: el.name,
-          value: el.id,
-        })),
-        workFromHome: Boolean(can_work_home),
+        dManager: manager?.id,
+        copiedManager: copied_managers || [],
+        workFromHome: can_work_home,
       };
       setForm(emplowee);
     },
-    skip: index == 0 || newForm,
+    skip: newForm,
   });
 
   //==========================================================================================================
@@ -90,9 +89,8 @@ const FormModal = ({
   const [selectedImage, setSelectedImage] = useState(null);
   const { clientsData, setClientsData } = useContext(clientsContext);
 
-  //==========================================================================================================
+  //checking validity schema===================================================================================
 
-  // checking validity schema
   const [errors, setErrors] = useState({});
 
   const checkValidity = () => {
@@ -121,15 +119,15 @@ const FormModal = ({
     else if (name.length > 40) newErrors.name = "Name is too long!";
     return newErrors;
   };
-  // onSubmit, handeling both adding and updating==============================================================================================
+  // onSubmit, handeling both adding and updating======================================================================
 
   const [addUser, { addUserData, addUserLoading, addUserError }] = useAddUser();
 
   const [updateUser, { updateUserData, updateUserLoading, updateUserError }] =
     useUpdateUser();
 
+  const newErrors = checkValidity();
   const onSubmit = async (e) => {
-    const newErrors = checkValidity();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       e.preventDefault();
@@ -152,15 +150,26 @@ const FormModal = ({
           office_id: form.office,
           position_id: form.position,
           att_profile_id: form.attendance,
-          copied_managers: form.copiedManager.map((el) => el.value),
+          copied_managers: form.copiedManager.map((el) => el.id),
           user_image: null,
+          can_work_home: Number(form.workFromHome),
         },
-        onCompleted: () => alert("User added sucessfully"),
+        onCompleted: () => {
+          alert("User added sucessfully");
+          fetchUsersData();
+          setnewForm(false);
+          setModalOpen(false);
+        },
+        onError: (err) => {
+          alert("Error in adding the user");
+          checkServerValidations(err);
+          console.log(err.graphQLErrors[0].extensions?.validation);
+        },
       });
     } else {
       await updateUser({
         variables: {
-          id: index,
+          id: modalID,
           name: form.name,
           phone: form.phone,
           email: form.email,
@@ -171,17 +180,30 @@ const FormModal = ({
           office_id: form.office,
           position_id: form.position,
           att_profile_id: form.attendance,
-          copied_managers: form.copiedManager.map((el) => el.value),
+          copied_managers: form.copiedManager.map((el) => el.id),
           user_image: null,
+          can_work_home: Number(form.workFromHome),
         },
-        onCompleted: () => alert("User Updated sucessfully"),
+        onCompleted: () => {
+          alert("User Updated sucessfully");
+          fetchUsersData();
+          setnewForm(false);
+          setModalOpen(false);
+        },
       });
     }
-    fetchSearch();
-    // setClientsData((clientsData) => [...clientsData, employee]);
-    setnewForm(false);
-    setModalOpen(false);
   };
+
+  const checkServerValidations = (err) => {
+    var error = err?.graphQLErrors[0].extensions?.validation;
+    if (error["input.user_input.name"]) {
+      newErrors.name = error["input.user_input.name"][0];
+    }
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+    }
+  };
+  // console.log(addUserError?.graphQLErrors[0].extensions?.validation);
 
   // handle form change=========================================================================================
   const handleFormChange = (e) => {
@@ -195,49 +217,55 @@ const FormModal = ({
   };
   //remove manager from copied managers list and vice versa=====================================================
   const [filteredManagers, setFilteredManagers] = useState(managers);
-  const [filteredCopiedManagers, setFilteredCopiedManagers] =
-    useState(managers);
   const [filteredCopiedManagersReselect, setFilteredCopiedManagersReselect] =
     useState(managers);
 
-  useEffect(() => {
-    const managersForReselect = managers?.map((manager) => ({
-      value: manager.id,
-      label: manager.name,
-    }));
-    setFilteredCopiedManagersReselect(managersForReselect);
-    setFilteredManagers(managers);
-  }, [managers]);
+  // useEffect(() => {
+  //   const managersForReselect = managers?.map((manager) => ({
+  //     value: manager.id,
+  //     label: manager.name,
+  //   }));
+  //   setFilteredCopiedManagersReselect(managersForReselect);
+  //   setFilteredManagers(managers);
+  // }, [managers]);
 
   useEffect(() => {
-    if (form.copiedManager && form.dManager) {
-      const selectIds = form.copiedManager.map((el) => el.value);
-      const filtered = managers.filter(
+    if (true) {
+      console.log("1");
+      let cpManger = !!form?.copiedManager ? form?.copiedManager : [];
+      const selectIds = cpManger?.map((el) => el.id);
+      const filtered = managers?.filter(
         (manager) => !selectIds.includes(manager.id)
       );
+      const cpFiltered = managers?.filter(
+        (manager) => manager?.id !== form?.dManager
+      );
       setFilteredManagers(filtered);
+      setFilteredCopiedManagersReselect(cpFiltered);
     }
-    if (form.dManager) {
-      const filtered = managers.filter(
-        (manager) => manager.id !== form.dManager
-      );
+    // if (form.dManager) {
+    //   console.log("2");
+    //   const cpFiltered = managers.filter(
+    //     (manager) => manager.id !== form.dManager
+    //   );
 
-      setFilteredCopiedManagersReselect(
-        filtered.map((manager) => ({
-          value: manager.id,
-          label: manager.name,
-        }))
-      );
-    } else if (form.copiedManager) {
-      const selectIds = form.copiedManager.map((el) => el.value);
-      const filtered = managers.filter(
-        (manager) => !selectIds.includes(manager.id)
-      );
+    //   setFilteredCopiedManagersReselect(
+    //     filtered.map((manager) => ({
+    //       value: manager.id,
+    //       label: manager.name,
+    //     }))
+    //   );
+    // } else if (form.copiedManager) {
+    //   console.log("3");
+    //   const selectIds = form.copiedManager.map((el) => el.value);
+    //   const filtered = managers.filter(
+    //     (manager) => !selectIds.includes(manager.id)
+    //   );
 
-      setFilteredManagers(filtered);
-    } else {
-      return filteredManagers;
-    }
+    //   setFilteredManagers(filtered);
+    // } else {
+    //   return filteredManagers;
+    // }
   }, [form.dManager, form.copiedManager, managers]);
 
   //==============================================================================================================
@@ -245,7 +273,7 @@ const FormModal = ({
   return (
     <div className="modal-form-container d-flex justify-content-center align-items-start align-items-md-start">
       {loading || addUserLoading || editedData.loading || updateUserLoading ? (
-        <h1>loading</h1>
+        <Spinner />
       ) : (
         <Container className="form-con pt-3 pb-4 pb-md-3 ps-4 pe-4 pe-lg-5">
           <Form onSubmit={onSubmit} id="form" noValidate>
@@ -367,7 +395,7 @@ const FormModal = ({
                 required
               >
                 <option>
-                  {editedData ? editedData?.user?.office?.name : "Name"}
+                  {form.office ? editedData?.user?.office?.name : "Name"}
                 </option>
                 {offices?.map((office) => (
                   <option key={office.id} value={office.id}>
@@ -393,7 +421,7 @@ const FormModal = ({
                     required
                   >
                     <option value="">
-                      {editedData
+                      {form.department
                         ? editedData?.user?.department?.name
                         : "Select"}
                     </option>
@@ -421,7 +449,7 @@ const FormModal = ({
                     required
                   >
                     <option value="">
-                      {editedData
+                      {form.attendance
                         ? editedData?.user?.attendance_profile?.name
                         : "Select"}
                     </option>
@@ -476,7 +504,9 @@ const FormModal = ({
                     required
                   >
                     <option>
-                      {editedData ? editedData?.user?.position?.name : "Select"}
+                      {form.position
+                        ? editedData?.user?.position?.name
+                        : "Select"}
                     </option>
                     {positions?.map((element) => (
                       <option key={element.id} value={element.id}>
@@ -501,7 +531,7 @@ const FormModal = ({
                     // isInvalid={ !!errors.dManager }
                   >
                     <option>
-                      {editedData
+                      {form.dManager
                         ? editedData?.user?.manager?.name
                         : "Select Option"}
                     </option>
@@ -551,6 +581,7 @@ const FormModal = ({
                   }
                   checked={form.workFromHome}
                   name="attendance"
+                  value={1}
                 />
               </Form.Group>
             </Row>
@@ -564,6 +595,7 @@ const FormModal = ({
                 onClick={() => {
                   setModalOpen(false);
                   setnewForm(false);
+                  setModalID(undefined);
                 }}
               >
                 Cancel

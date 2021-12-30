@@ -19,6 +19,8 @@ export default function AnimatedMulti({ options, onChange, value, name }) {
       options={options}
       onChange={onChange}
       value={value}
+      getOptionLabel={(option) => option?.name}
+      getOptionValue={(option) => option?.id}
       styles={{
         control: (base, state) => ({
           ...base,
