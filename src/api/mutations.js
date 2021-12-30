@@ -37,7 +37,7 @@ export const STORE_USER = gql`
           flexible_home: 2
           can_ex_days: 1
           can_work_home: $can_work_home
-          has_credentials: 0
+          has_credentials: 1
           copied_managers: $copied_managers
         }
         user_salary_config_input: {
