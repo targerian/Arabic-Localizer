@@ -75,12 +75,11 @@ const ClientsDashboard = ({ modalOpen, setModalOpen }) => {
   //handle edit ==============================================================================================================
   const [index, setIndex] = useState(0);
 
+  const [newForm, setnewForm] = useState(false);
   const handleEdit = (i) => {
     setIndex(i);
     setModalOpen(true);
   };
-
-  const [newForm, setnewForm] = useState(false);
 
   return (
     <>

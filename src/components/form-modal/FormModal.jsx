@@ -9,6 +9,7 @@ import useAddUser from "../../api/apiHooks/useAddUser";
 import { GET_USER_INFO } from "../../api/quereis";
 import { useQuery } from "@apollo/client";
 import { extendSchemaImpl } from "graphql/utilities/extendSchema";
+import useUpdateUser from "../../api/apiHooks/useUpdateUser";
 
 const FormModal = ({
   setModalOpen,
@@ -59,6 +60,7 @@ const FormModal = ({
         department,
         manager,
         copied_managers,
+        can_work_home,
       } = data.user;
       const emplowee = {
         id: index,
@@ -68,12 +70,15 @@ const FormModal = ({
         phone: phone,
         office: office.id,
         department: department.id,
-        attendance: "",
-        role: "",
-        position: "",
-        dManager: "",
-        copiedManager: "",
-        workFromHome: false,
+        attendance: attendance_profile.id,
+        role: "Frontend Developer",
+        position: position.id,
+        dManager: manager.id,
+        copiedManager: copied_managers.map((el) => ({
+          label: el.name,
+          value: el.id,
+        })),
+        workFromHome: Boolean(can_work_home),
       };
       setForm(emplowee);
     },
@@ -116,12 +121,13 @@ const FormModal = ({
     else if (name.length > 40) newErrors.name = "Name is too long!";
     return newErrors;
   };
-  //==========================================================================================================
+  // onSubmit, handeling both adding and updating==============================================================================================
 
   const [addUser, { addUserData, addUserLoading, addUserError }] = useAddUser();
-  useEffect(() => {
-    console.log(addUserData?.store_user_with_user_salary_config);
-  });
+
+  const [updateUser, { updateUserData, updateUserLoading, updateUserError }] =
+    useUpdateUser();
+
   const onSubmit = async (e) => {
     const newErrors = checkValidity();
     if (Object.keys(newErrors).length > 0) {
@@ -132,49 +138,52 @@ const FormModal = ({
     }
     e.preventDefault();
     e.preventDefault();
-    // const employee = {
-    //   id: new Date().getMilliseconds(),
-    //   name: form.name,
-    //   email: form.email,
-    //   image: selectedImage
-    //     ? URL.createObjectURL(selectedImage)
-    //     : "/images/user.jpg",
-    //   sDate: form.sDate,
-    //   phone: form.phone,
-    //   office: form.office,
-    //   department: form.department,
-    //   attendance: form.attendance,
-    //   role: form.role,
-    //   position: form.position,
-    //   dManager: form.dManager,
-    //   workFromHome: form.workFromHome,
-    //   copiedManager: form.copiedManager.map((el) => el.value),
-    // };
-    console.log("aaaaaaaaaaaaaaaaaaaading a user");
-    await addUser({
-      variables: {
-        id: null,
-        name: form.name,
-        phone: form.phone,
-        email: form.email,
-        start_at: form.sDate,
-        department_id: form.department,
-        manager_id: form.dManager,
-        company_id: 1,
-        office_id: form.office,
-        position_id: form.position,
-        att_profile_id: form.attendance,
-        copied_managers: form.copiedManager.map((el) => el.value),
-        user_image: null,
-      },
-    });
-    console.log("loaaaaaaaaaaading  " + addUserLoading);
+    if (newForm) {
+      await addUser({
+        variables: {
+          id: null,
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          start_at: form.sDate,
+          department_id: form.department,
+          manager_id: form.dManager,
+          company_id: 1,
+          office_id: form.office,
+          position_id: form.position,
+          att_profile_id: form.attendance,
+          copied_managers: form.copiedManager.map((el) => el.value),
+          user_image: null,
+        },
+        onCompleted: () => alert("User added sucessfully"),
+      });
+    } else {
+      await updateUser({
+        variables: {
+          id: index,
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          start_at: form.sDate,
+          department_id: form.department,
+          manager_id: form.dManager,
+          company_id: 1,
+          office_id: form.office,
+          position_id: form.position,
+          att_profile_id: form.attendance,
+          copied_managers: form.copiedManager.map((el) => el.value),
+          user_image: null,
+        },
+        onCompleted: () => alert("User Updated sucessfully"),
+      });
+    }
     fetchSearch();
     // setClientsData((clientsData) => [...clientsData, employee]);
+    setnewForm(false);
     setModalOpen(false);
   };
 
-  //==========================================================================================================
+  // handle form change=========================================================================================
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setForm((prevState) => ({ ...prevState, [name]: value }));
@@ -184,9 +193,7 @@ const FormModal = ({
         [name]: null,
       });
   };
-  //===========================================================================================================
-
-  // remove manager from copied managers list and vice versa
+  //remove manager from copied managers list and vice versa=====================================================
   const [filteredManagers, setFilteredManagers] = useState(managers);
   const [filteredCopiedManagers, setFilteredCopiedManagers] =
     useState(managers);
@@ -237,7 +244,7 @@ const FormModal = ({
 
   return (
     <div className="modal-form-container d-flex justify-content-center align-items-start align-items-md-start">
-      {loading || addUserLoading || editedData.loading ? (
+      {loading || addUserLoading || editedData.loading || updateUserLoading ? (
         <h1>loading</h1>
       ) : (
         <Container className="form-con pt-3 pb-4 pb-md-3 ps-4 pe-4 pe-lg-5">
@@ -385,7 +392,11 @@ const FormModal = ({
                     isInvalid={!!errors.department}
                     required
                   >
-                    <option value="">Select</option>
+                    <option value="">
+                      {editedData
+                        ? editedData?.user?.department?.name
+                        : "Select"}
+                    </option>
                     {departments?.map((department) => (
                       <option key={department.id} value={department.id}>
                         {department.name}
@@ -409,7 +420,11 @@ const FormModal = ({
                     isInvalid={!!errors.attendance}
                     required
                   >
-                    <option value="">Select</option>
+                    <option value="">
+                      {editedData
+                        ? editedData?.user?.attendance_profile?.name
+                        : "Select"}
+                    </option>
                     {attendance?.map((element) => (
                       <option key={element.id} value={element.id}>
                         {element.name}
@@ -460,7 +475,9 @@ const FormModal = ({
                     isInvalid={!!errors.position}
                     required
                   >
-                    <option>Select</option>
+                    <option>
+                      {editedData ? editedData?.user?.position?.name : "Select"}
+                    </option>
                     {positions?.map((element) => (
                       <option key={element.id} value={element.id}>
                         {element.name}
@@ -483,7 +500,11 @@ const FormModal = ({
                     className="form-text-input form-select-extrapadding"
                     // isInvalid={ !!errors.dManager }
                   >
-                    <option>Select Option</option>
+                    <option>
+                      {editedData
+                        ? editedData?.user?.manager?.name
+                        : "Select Option"}
+                    </option>
                     {filteredManagers?.map((element) => (
                       <option key={element.id} value={element.id}>
                         {element.name}

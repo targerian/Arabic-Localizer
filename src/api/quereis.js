@@ -186,6 +186,7 @@ export const GET_USER_INFO = gql`
         name
         id
       }
+      can_work_home
     }
   }
 `;
